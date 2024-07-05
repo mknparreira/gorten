@@ -2,7 +2,12 @@
 My project in Golang implements a checkout service for an e-commerce platform. This is for study purposes.
 
 ## Architecture
-TBD
+Through the API Gateway, it will be implemented a service discovery and rate limit.
+Also, there will be a circuit breaker with a fallback.
+All APIs will be authenticated.
+All APIs will be caching with Redis.
+The data will be recorded in MongoDB.
+All apps will be running into Docker.
 
 ## Roadmap
 This project will be split into the following phases:
