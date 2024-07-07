@@ -1,31 +1,26 @@
 # Gorten
-My project in Golang implements a checkout service for an e-commerce platform. This is for study purposes.
+My project in Golang implements a checkout service for an e-commerce marketplace platform. This is only for study purposes.
 
 ## Architecture
-Through the API Gateway, it will be implemented a service discovery and rate limit.
-Also, there will be a circuit breaker with a fallback.
-All APIs will be authenticated.
-All APIs will be caching with Redis.
-The data will be recorded in MongoDB.
-All apps will be running into Docker.
+TBD
 
 ## Roadmap
 This project will be split into the following phases:
-1. Installation + Configuration
-2. Infra
+1. First steps
+2. Infrastructure
 3. User resource
 4. Category resource
 5. Product resource
 6. Company resource
 7. Order resource
-8. Rate Limit + Circuit breaker + fallback
-9. Monitoring
+8. Provide Resilience
+9. Provide Scalability
 10. Open API Documentation 
 11. Future features
 
-# 1. Installation + Configuração
+# 1. First steps
 TBD
-# 2. Infra
+# 2. Infrastructure
 TBD
 # 3. User resource
 TBD
@@ -37,9 +32,9 @@ TBD
 TBD
 # 7. Order resource
 TBD
-# 8. Rate limit + Circuit breaker + fallback
+# 8. Provide Resilience
 TBD
-# 9. Monitoring
+# 9. Provide Scalability
 TBD
 # 10. Open API documentation
 TBD
