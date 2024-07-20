@@ -17,11 +17,12 @@ The project will be divided into the following phases:
 9. Payments resource
 10. ShoppingCart resource
 11. Checkout
-12. Enhance Resilience in the APIs
-13. Enhance Scalability in the APIs
-14. Monitoring
-15. Open API Documentation
-16. Future features
+12. Enhance Security in the APIs 
+13. Enhance Resilience in the APIs
+14. Enhance Scalability in the APIs
+15. Monitoring
+16. Open API Documentation
+17. Future features
 
 # 1. Infrastructure
 ## Features
@@ -61,19 +62,22 @@ TBD
 # 11. Checkout
 TBD
 
-# 12. Enhance Resilience in the APIs
+# 12. Enhance Security in the APIs
 TBD
 
-# 13. Enhance Scalability in the APIs
+# 13. Enhance Resilience in the APIs
 TBD
 
-# 14. Monitoring
+# 14. Enhance Scalability in the APIs
 TBD
 
-# 15. Open API Documentation
+# 15. Monitoring
 TBD
 
-# 16. Future features
+# 16. Open API Documentation
+TBD
+
+# 17. Future features
 | Feature | Description |
 |---------|-------------|
 | Kubernetes | Implements Kubernetes and their responsibilities: Load Balance, Service Register |
