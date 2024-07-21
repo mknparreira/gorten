@@ -1,0 +1,21 @@
+_format_version: "2.1"
+_transform: true
+
+plugins:
+  - name: jwt
+    config:
+      uri_param_names:
+        - jwt
+      claims_to_verify:
+        - exp
+  - name: request-termination
+    config:
+      status_code: 403
+      message: "Forbidden: This route is not allowed"   
+  - name: response-transformer
+    config:
+      add:
+        headers:
+          - "X-Content-Type-Options:nosniff"
+          - "X-Frame-Options:DENY"
+          - "X-XSS-Protection:1; mode=block"
