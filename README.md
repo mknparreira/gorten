@@ -1,11 +1,15 @@
 # Gorten
+
 Gorten is a project for educational purposes built in Golang that implements a checkout service for an e-commerce marketplace platform.
 
 ## Architecture
+
 TBD
 
 ## Roadmap
+
 The project will be divided into the following phases:
+
 1. Infrastructure
 2. Implements RabbitMQ
 3. Implements MongoDB
@@ -17,7 +21,7 @@ The project will be divided into the following phases:
 9. Payments resource
 10. ShoppingCart resource
 11. Checkout
-12. Enhance Security in the APIs 
+12. Enhance Security in the APIs
 13. Enhance Resilience in the APIs
 14. Enhance Scalability in the APIs
 15. Monitoring
@@ -25,62 +29,80 @@ The project will be divided into the following phases:
 17. Future features
 
 # 1. Infrastructure
+
 ## Features
-| Package | Description |
-|---------|-------------|
-|Implement API Gateway by [Kong](https://konghq.com/products/kong-gateway) |   |
-|Authentication using JWT Kong Plugin | All APIs will only be accessed by a JWT token |
-|Fall-safe using request-termination Kong Plugin | Implements rejection of unauthorized requests to implement a security policy that rejects any request not associated with a defined route. This is done by checking if the route is configured |
-|Add Docker |   |
-  
+
+| Package                                                                   | Description                                                                                                                                                                                    |
+| ------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Implement API Gateway by [Kong](https://konghq.com/products/kong-gateway) |                                                                                                                                                                                                |
+| Authentication using JWT Kong Plugin                                      | All APIs will only be accessed by a JWT token                                                                                                                                                  |
+| Fall-safe using request-termination Kong Plugin                           | Implements rejection of unauthorized requests to implement a security policy that rejects any request not associated with a defined route. This is done by checking if the route is configured |
+| The Response Transformer plugin                                           | Add HTTP Headers to avoid XSS and Clickjacking attacks                                                                                                                                         |
+| Docker                                                                    |                                                                                                                                                                                                |
+
 # 2. Implements RabbitMQ
+
 TBD
 
 # 3. Implements MongoDB
+
 TBD
 
 # 4. User resource
+
 TBD
+
 # 5. Company resource
+
 TBD
 
 # 6. Category resource
+
 TBD
 
 # 7. Products resource
+
 TBD
 
 # 8. Orders and OrdersItems resource
+
 TBD
 
 # 9. Payments resource
+
 TBD
 
 # 10. ShoppingCart resource
+
 TBD
 
 # 11. Checkout
+
 TBD
 
 # 12. Enhance Security in the APIs
+
 TBD
 
 # 13. Enhance Resilience in the APIs
+
 TBD
 
 # 14. Enhance Scalability in the APIs
+
 TBD
 
 # 15. Monitoring
+
 TBD
 
 # 16. Open API Documentation
+
 TBD
 
 # 17. Future features
-| Feature | Description |
-|---------|-------------|
+
+| Feature    | Description                                                                      |
+| ---------- | -------------------------------------------------------------------------------- |
 | Kubernetes | Implements Kubernetes and their responsibilities: Load Balance, Service Register |
-| Jenkins | Implements CI-CD |
-
-
+| Jenkins    | Implements CI-CD                                                                 |
