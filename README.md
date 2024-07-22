@@ -1,6 +1,15 @@
 # Gorten
 
-Gorten is a project for educational purposes built in Golang that implements a checkout service for an e-commerce marketplace platform.
+Gorten is a project for education purposes developed in Golang, designed to implement a checkout service for an e-commerce marketplace platform. This project aims to provide a practical learning experience by covering essential components of an e-commerce system, including:
+
+- **Infrastructure Setup**: Implementing RabbitMQ for messaging and MongoDB for data storage.
+- **Core Resources**: Developing several resources such as User, Company, Category, Product, Order, Payment, and Shopping Cart.
+- **Checkout Process**: Handling the finalization of purchases.
+- **API Enhancements**: Focusing on security, resilience, and scalability improvements.
+- **Monitoring and Documentation**: Implementing monitoring and documenting the API with OpenAPI specifications.
+- **Future features**: Planning for additional features and improvements.
+
+The Gorten project aims to demonstrate practical applications of Golang in building robust and scalable e-commerce solutions while offering hands-on experience with modern software practices and technologies.
 
 ## Architecture
 
@@ -10,35 +19,35 @@ TBD
 
 The project will be divided into the following phases:
 
-1. Infrastructure
-2. Implements RabbitMQ
-3. Implements MongoDB
+1. Infrastructure Setup **(done)**
+2. Implement RabbitMQ
+3. Implement MongoDB
 4. User resource
 5. Company resource
 6. Category resource
 7. Products resource
-8. Orders and OrdersItems resource
+8. Orders and Orders Items resource
 9. Payments resource
-10. ShoppingCart resource
-11. Checkout
-12. Enhance Security in the APIs
-13. Enhance Resilience in the APIs
-14. Enhance Scalability in the APIs
+10. Shopping Cart resource
+11. Checkout resource
+12. Enhance API Security
+13. Enhance API Resilience
+14. Enhance API Scalability
 15. Monitoring
-16. Open API Documentation
+16. The Open API Documentation
 17. Future features
 
-# 1. Infrastructure
+# 1. Infrastructure Setup
 
 ## Features
 
-| Package                                                                   | Description                                                                                                                                                                                    |
-| ------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Implement API Gateway by [Kong](https://konghq.com/products/kong-gateway) |                                                                                                                                                                                                |
-| Authentication using JWT Kong Plugin                                      | All APIs will only be accessed by a JWT token                                                                                                                                                  |
-| Fall-safe using request-termination Kong Plugin                           | Implements rejection of unauthorized requests to implement a security policy that rejects any request not associated with a defined route. This is done by checking if the route is configured |
-| The Response Transformer plugin                                           | Add HTTP Headers to avoid XSS and Clickjacking attacks                                                                                                                                         |
-| Docker                                                                    |                                                                                                                                                                                                |
+| Package                                                                      | Description                                                                                                                                                                                    |
+| ---------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Implement API Gateway using [Kong](https://konghq.com/products/kong-gateway) |                                                                                                                                                                                                |
+| Authentication using JWT Kong Plugin                                         | All APIs will only be accessed by a JWT token                                                                                                                                                  |
+| Fall-safe using request-termination Kong Plugin                              | Implements rejection of unauthorized requests to implement a security policy that rejects any request not associated with a defined route. This is done by checking if the route is configured |
+| The Response Transformer plugin                                              | Add HTTP Headers to avoid XSS and Clickjacking attacks                                                                                                                                         |
+| Docker                                                                       |                                                                                                                                                                                                |
 
 # 2. Implements RabbitMQ
 
@@ -64,7 +73,7 @@ TBD
 
 TBD
 
-# 8. Orders and OrdersItems resource
+# 8. Orders and Orders Items resource
 
 TBD
 
@@ -72,37 +81,51 @@ TBD
 
 TBD
 
-# 10. ShoppingCart resource
+# 10. Shopping Cart resource
 
 TBD
 
-# 11. Checkout
+# 11. Checkout resource
 
 TBD
 
-# 12. Enhance Security in the APIs
+# 12. Enhance API Security
 
 TBD
 
-# 13. Enhance Resilience in the APIs
+# 13. Enhance API Resilience
 
-TBD
+In this phase, I will implement some strategies to improve the resilience of APIs, ensuring they can handle with failures and recover effectively. I will adopting the following strategies and tools:
 
-# 14. Enhance Scalability in the APIs
+- Implement Circuit Breaker using Hystrix-Go package.
+- Implement retries e backoff using Retry-Go package.
+- Configure timeout into the entire services in Kong API Gateway
+- Implement Fallback Pattern using Go-Fallback or Resilience4j package (I’m not sure yet).
+- Implement Bulkheads.
 
-TBD
+# 14. Enhance API Scalability
+
+To ensure API Scalability and can handle increasing demand effectively, I will adopting the following strategies and tools:
+
+- Implement Load Balancing with Kubernetes
+- Implement Caching with Redis
+- Implement Rate Limiting Using the Kong Plugin
 
 # 15. Monitoring
 
-TBD
+This phase I will integrating monitoring through the entire system to ensure visibility and performance management. The goal is to provide real-time insights, track system health, and identify potential issues early by monitoring various metrics, logs, and events across all services. This will help in maintaining system reliability and performance.
 
-# 16. Open API Documentation
+- Implement monitoring across all services
 
-TBD
+# 16. The Open API Documentation
+
+In this phase, the OpenAPI documentation will be created for every API within the project. This documentation will serve as a detailed reference with all available endpoints, request and response formats, and authentication methods by using the OpenAPI specifications.
+
+- Provide The OpenAPI Documentation for All APIs
 
 # 17. Future features
 
-| Feature    | Description                                                                      |
-| ---------- | -------------------------------------------------------------------------------- |
-| Kubernetes | Implements Kubernetes and their responsibilities: Load Balance, Service Register |
-| Jenkins    | Implements CI-CD                                                                 |
+| Feature    | Description                 |
+| ---------- | --------------------------- |
+| Kubernetes | Implements Service Register |
+| Jenkins    | Implements CI-CD            |
