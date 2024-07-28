@@ -19,9 +19,9 @@ TBD
 
 The project will be divided into the following phases:
 
-1. Infrastructure Setup **(done)**
-2. Implement RabbitMQ
-3. Implement MongoDB
+1. API Gateway Installation **(done)**
+2. RabbitMQ Installation **(done)**
+3. MongoDB Installation
 4. User resource
 5. Company resource
 6. Category resource
@@ -31,30 +31,47 @@ The project will be divided into the following phases:
 10. Shopping Cart resource
 11. Checkout resource
 12. Enhance API Security
-13. Implement Kubernetes
+13. Kubernetes Installation
 14. Enhance API Resilience
 15. Enhance API Scalability
 16. Monitoring & Tracing
 17. The Open API Documentation
 18. Future features
 
-# 1. Infrastructure Setup
+# 1. API Gateway Installation
 
 ## Features
 
-| Package                                                                      | Description                                                                                                                                                                                    |
-| ---------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Implement API Gateway using [Kong](https://konghq.com/products/kong-gateway) |                                                                                                                                                                                                |
-| Authentication using JWT Kong Plugin                                         | All APIs will only be accessed by a JWT token                                                                                                                                                  |
-| Fall-safe using request-termination Kong Plugin                              | Implements rejection of unauthorized requests to implement a security policy that rejects any request not associated with a defined route. This is done by checking if the route is configured |
-| The Response Transformer plugin                                              | Add HTTP Headers to avoid XSS and Clickjacking attacks                                                                                                                                         |
-| Docker                                                                       |                                                                                                                                                                                                |
+| Package                                                                  | Description                                                                                                                                                                                    |
+| ------------------------------------------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Setup API Gateway using [Kong](https://konghq.com/products/kong-gateway) |                                                                                                                                                                                                |
+| Authentication using JWT Kong Plugin                                     | All APIs will only be accessed by a JWT token                                                                                                                                                  |
+| Fall-safe using request-termination Kong Plugin                          | Implements rejection of unauthorized requests to implement a security policy that rejects any request not associated with a defined route. This is done by checking if the route is configured |
+| The Response Transformer plugin                                          | Add HTTP Headers to avoid XSS and Clickjacking attacks                                                                                                                                         |
+| Docker                                                                   |                                                                                                                                                                                                |
 
-# 2. Implements RabbitMQ
+# 2. RabbitMQ Installation
 
-TBD
+To set up RabbitMQ for this project, we've provided an automated shell script that configures the necessary exchanges, queues, and bindings. Follow the instructions below to get RabbitMQ up and running.
 
-# 3. Implements MongoDB
+**Running the Setup Script**
+The setup script (setup-rabbitmq.sh) is designed to be executed automatically when the RabbitMQ container starts. This script performs the following actions:
+
+- Waits for RabbitMQ to Start: The script waits until RabbitMQ's management API is available before proceeding with configuration.
+- Creates an Admin User: A dedicated RabbitMQ admin user (rabbitmq_admin) is created with the specified password.
+- Configures Exchanges, Queues, and Bindings: The script declares all necessary exchanges, queues, and bindings as required by the application.
+
+**Environment Variables**
+You can customize the RabbitMQ setup using environment variables:
+
+RABBITMQ_USER: Username for the RabbitMQ admin user (default: rabbitmq_admin).
+RABBITMQ_PASSWORD: Password for the RabbitMQ admin user (default: my_password).
+RABBITMQ_HOST: Hostname for RabbitMQ (default: localhost).
+RABBITMQ_PORT: Management API port (default: 15672).
+
+To override these defaults, you can set the environment variables in your docker-compose.yml or .env file.
+
+# 3. MongoDB Installation
 
 TBD
 
@@ -94,7 +111,7 @@ TBD
 
 TBD
 
-# 13. Implement Kubernetes
+# 13. Kubernetes Installation
 
 TBD
 
