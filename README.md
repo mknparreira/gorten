@@ -13,7 +13,9 @@ The Gorten project aims to demonstrate practical applications of Golang in build
 
 ## Architecture
 
-TBD
+### RabbitMQ
+
+[![RabbitMQ Diagram](docs/rabbitmq.png)](https://www.plantuml.com/plantuml/uml/TP7DIWCn483lUOhOYtfe7w07gTH51AbLwgrGOcPQ1xgJc1-nRo-RtQKZgSUTVD-m7xE8oOIKswEw0jmJetvhbflxrUDpewrhlMFafDIrVkXVyST-6ZvWL6TkuW9Ws8rFMxxPd3pEDL10csudsaJzqY7DG4ZN1mVPfjfEpfFjvNNFNDBP9TgJDOaSrplsXbqU_c0bo76J2FlAc2zLsO0c8PmZbltWjUDht1iIxDfG3H9_8oSNJhlimIGi-DCuV2-pIiBMq74dQsFnccukqs9HHTW7CH0Velfp0ZsTtjKzUgvBncoehXtP9OMkMwdnK5Aeouest7rc012sF7xc0e5Iiadk-xTuWGovFVu2)
 
 ## Roadmap
 
@@ -65,11 +67,16 @@ The setup script (setup-rabbitmq.sh) is designed to be executed automatically wh
 You can customize the RabbitMQ setup using environment variables:
 
 RABBITMQ_USER: Username for the RabbitMQ admin user (default: rabbitmq_admin).
+
 RABBITMQ_PASSWORD: Password for the RabbitMQ admin user (default: my_password).
+
 RABBITMQ_HOST: Hostname for RabbitMQ (default: localhost).
+
 RABBITMQ_PORT: Management API port (default: 15672).
 
-To override these defaults, you can set the environment variables in your docker-compose.yml or .env file.
+WAIT_TIME: (default:10)
+
+To override these defaults, you can set the environment variables in your .env file.
 
 # 3. MongoDB Installation
 
