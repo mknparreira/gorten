@@ -2,11 +2,6 @@
 # setup-rabbitmq.sh
 
 # Config variable
-RABBITMQ_USER=${RABBITMQ_USER:-rabbitmq_admin}
-RABBITMQ_PASSWORD=${RABBITMQ_PASSWORD:-my_password}
-RABBITMQ_HOST=${RABBITMQ_HOST:-localhost}
-RABBITMQ_PORT=${RABBITMQ_PORT:-15672}
-WAIT_TIME=${WAIT_TIME:-10}
 RED='\033[0;31m'
 GREEN='\033[0;32m'
 CYAN='\033[0;36m'
