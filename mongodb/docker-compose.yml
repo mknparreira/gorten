@@ -1,0 +1,19 @@
+services:
+  mongodb:
+    image: custom-mongo:latest
+    build: .
+    container_name: mongodb
+    env_file:
+      - .env
+    ports:
+      - "27017:27017"
+
+  mongo-express:
+    image: mongo-express:latest
+    container_name: mongo-express
+    env_file:
+      - .env
+    ports:
+      - "8081:8081"
+    depends_on:
+      - mongodb

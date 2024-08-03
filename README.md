@@ -1,8 +1,8 @@
 # Gorten
 
-Gorten is a project for education purposes developed for me in Golang, designed to implement a checkout service for an e-commerce marketplace platform. This project aims to provide a practical learning experience by covering essential components of an e-commerce system, including:
+Gorten is a project for education purposes developed for me in Golang using [Gin framework](https://gin-gonic.com/), designed to implement a checkout service for an e-commerce marketplace platform. This project aims to provide a practical learning experience by covering essential components of an e-commerce system, including:
 
-- **Infrastructure Setup**: Implementing RabbitMQ for messaging, Kubernetes and MongoDB for data storage.
+- **Infrastructure Setup**: Implementing API Gateway using Kong, RabbitMQ for messaging, Redis for caching, Kubernetes for orchestration containers and MongoDB for data storage.
 - **Core Resources**: Developing several resources such as User, Company, Category, Product, Order, Payment, and Shopping Cart.
 - **Checkout Process**: Handling the finalization of purchases.
 - **API Enhancements**: Focusing on security, resilience, and scalability improvements.
