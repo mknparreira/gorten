@@ -18,6 +18,7 @@
 # vendor/
 
 rabbitmq/.env
+mongodb/.env
 
 # Go workspace file
 go.work
