@@ -2,7 +2,7 @@
 
 Gorten is a project for education purposes developed for me in Golang using [Gin framework](https://gin-gonic.com/), designed to implement a checkout service for an e-commerce marketplace platform. This project aims to provide a practical learning experience by covering essential components of an e-commerce system, including:
 
-- **Infrastructure Setup**: Implementing API Gateway using Kong, RabbitMQ for messaging, Redis for caching, Kubernetes for orchestration containers and MongoDB for data storage.
+- **Infrastructure Setup**: Implementing an API Gateway with Kong, using RabbitMQ for messaging, Redis for caching, Kubernetes for container orchestration, and MongoDB for data storage.
 - **Core Resources**: Developing several resources such as User, Company, Category, Product, Order, Payment, and Shopping Cart.
 - **Checkout Process**: Handling the finalization of purchases.
 - **API Enhancements**: Focusing on security, resilience, and scalability improvements.
@@ -19,32 +19,25 @@ The Gorten project aims to demonstrate practical applications of Golang in build
 
 #### Overview
 
-This section provides explains the exchanges, queues, and bindings that are configured, and describes the flow of messages through the system.
+This section explains the exchanges, queues, and bindings that are configured, and describes the flow of messages through the system.
 
 ##### Exchanges
 
-**order_exchange**
-**Description:** Responsible for routing messages related to order events. For example, an order creation event with the routing key order.created will be routed to the order_created queue.
+**order_exchange**: Responsible for routing messages related to order events. For example, an order creation event with the routing key order.created will be routed to the order_created queue.
 
-**product_exchange**
-**Description:** Handles messages related to product events. For example, a message with the routing key product.added or product.updated will be routed to the inventory_update queue, enabling the system to handle various product-related events using pattern matching.
+**product_exchange**: Handles messages related to product events. For example, a message with the routing key product.added or product.updated will be routed to the inventory_update queue, enabling the system to handle various product-related events using pattern matching.
 
-**notification_exchange**
-**Description:** Use case: when a notification event occurs, it will be sent to all queues bound to this exchange, such as the email_notifications queue.
+**notification_exchange**: Use case: when a notification event occurs, it will be sent to all queues bound to this exchange, such as the email_notifications queue.
 
 ##### Queues
 
-**order_created**
-**Description:** This queue stores messages related to the creation of orders.
+**order_created**: Stores messages related to the creation of orders.
 
-**order_paid**
-**Description:** This queue stores messages related to the payment of orders.
+**order_paid**: Stores messages related to the payment of orders.
 
-**inventory_update**
-**Description:** This queue stores messages related to inventory updates, such as when a product is added or updated.
+**inventory_update**: Stores messages related to inventory updates, such as when a product is added or updated.
 
-**email_notifications**
-**Description:** This queue stores messages related to email notifications, which could be triggered by various events.
+**email_notifications**: Stores messages related to email notifications, which could be triggered by various events.
 
 ##### Bindings
 
@@ -76,7 +69,7 @@ The project will be divided into the following phases:
 
 1. API Gateway Installation **(done)**
 2. RabbitMQ Installation **(done)**
-3. MongoDB Installation
+3. MongoDB Installation **(done)**
 4. User resource
 5. Company resource
 6. Category resource
@@ -97,19 +90,20 @@ The project will be divided into the following phases:
 
 ## Features
 
-| Package                                                                  | Description                                                                                                                                                                                    |
-| ------------------------------------------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Setup API Gateway using [Kong](https://konghq.com/products/kong-gateway) |                                                                                                                                                                                                |
-| Authentication using JWT Kong Plugin                                     | All APIs will only be accessed by a JWT token                                                                                                                                                  |
-| Fall-safe using request-termination Kong Plugin                          | Implements rejection of unauthorized requests to implement a security policy that rejects any request not associated with a defined route. This is done by checking if the route is configured |
-| The Response Transformer plugin                                          | Add HTTP Headers to avoid XSS and Clickjacking attacks                                                                                                                                         |
-| Docker                                                                   |                                                                                                                                                                                                |
+| Package                                          | Description                                                                                                                                                                                    |
+| ------------------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| [Kong](https://konghq.com/products/kong-gateway) | API Gateway                                                                                                                                                                                    |
+| Authentication using JWT Kong Plugin             | All APIs will only be accessed by a JWT token                                                                                                                                                  |
+| Fall-safe using request-termination Kong Plugin  | Implements rejection of unauthorized requests to implement a security policy that rejects any request not associated with a defined route. This is done by checking if the route is configured |
+| The Response Transformer plugin                  | Add HTTP Headers to avoid XSS and Clickjacking attacks                                                                                                                                         |
+| Docker                                           |                                                                                                                                                                                                |
 
 # 2. RabbitMQ Installation
 
 To set up RabbitMQ for this project, we've provided an automated shell script that configures the necessary exchanges, queues, and bindings. Follow the instructions below to get RabbitMQ up and running.
 
-**Running the Setup Script**
+## Running the Setup Script
+
 The setup script (setup-rabbitmq.sh) is designed to be executed automatically when the RabbitMQ container starts. This script performs the following actions:
 
 - Waits for RabbitMQ to Start: The script waits until RabbitMQ's management API is available before proceeding with configuration.
@@ -130,7 +124,28 @@ To override these defaults, you can set the environment variables in your .env f
 
 # 3. MongoDB Installation
 
-TBD
+The `setup-mongo.js` script is automatically executed when the MongoDB container is started, ensuring that all necessary collections and their validation rules are created.
+
+Mongo Express allows easy inspection and management of MongoDB collections through a web interface.
+
+**Environment Variables**
+
+```env
+# MongoDB Configuration
+MONGO_INITDB_ROOT_USERNAME=admin
+MONGO_INITDB_ROOT_PASSWORD=password
+
+# Mongo Express Configuration
+ME_CONFIG_MONGODB_ADMINUSERNAME=admin
+ME_CONFIG_MONGODB_ADMINPASSWORD=password
+ME_CONFIG_MONGODB_SERVER=mongodb
+
+# Basic Auth Configuration for Mongo Express
+ME_CONFIG_BASICAUTH_USERNAME=admin
+ME_CONFIG_BASICAUTH_PASSWORD=qwert
+```
+
+To override these defaults, you can set the environment variables in your .env file.
 
 # 4. User resource
 
@@ -204,7 +219,8 @@ This phase I will integrating monitoring through the entire system to ensure vis
 
 In this phase, the OpenAPI documentation will be created for every API within the project. This documentation will serve as a detailed reference with all available endpoints, request and response formats, and authentication methods by using the OpenAPI specifications.
 
-- Provide The OpenAPI Documentation with Swagger for All APIs
+- Provide The OpenAPI Documentation with [Swagger](https://swagger.io/) for All APIs
+- Provide [AsyncAPI](https://www.asyncapi.com/en) documentation for asyncasynchronous APIs
 
 # 18. Future features
 
