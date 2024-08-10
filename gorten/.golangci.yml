@@ -1,0 +1,82 @@
+run:
+  timeout: 5m  #Set a timeout for linter execution
+  issues-exit-code: 1 #Set the exit code if there are issues
+
+linters-settings:
+  errorlint:
+    errorf: true #Check if fmt.Errorf uses the %w verb for formatting errors
+    asserts: true #Check for plain type assertions and type switches
+    comparison: true #Check for plain error comparisons
+
+  gocyclo:
+    min-complexity: 10 #Set the minimum cyclomatic complexity
+
+  goconst:
+    min-len: 2 #Minimum length of constant strings
+    min-occurrences: 2 #Minimum number of occurrences to consider constant
+
+  gofmt:
+    simplify: true #Simplify the code
+
+  staticcheck:
+    checks: ["all"] #Runs all checks available in staticcheck
+
+  errcheck:
+    exclude-functions:
+      - io.Close
+      - os.Close
+      - ioutil.ReadAll #Ignore specific errors
+
+linters:
+  enable:
+    - errcheck #Check function calls that return errors
+    - gosimple #Suggests code simplifications
+    - govet #Performs static code checks
+    - ineffassign #Detects ineffective assignments
+    - staticcheck #Set of static checks
+    - typecheck #Check for type errors
+    - gofmt #Check code formatting
+    - gocyclo #Check cyclomatic complexity
+    - goconst #Suggests use of constants for strings and repeated numbers
+
+  presets:
+    - bugs
+    - comment
+    - error
+    - performance
+    - unused
+issues:
+  exclude-use-default: false #If true, it will use default exclusion rules
+  exclude-case-sensitive: false #Set if the deletion should be case-sensitive
+  exclude-dirs-use-default: true #If true, it will use the default rules for ignoring directories
+  max-issues-per-linter: 50 #Set the maximum number of issues a linter can report
+  max-same-issues: 3 #Set the maximum number of times the same issue can appear
+  new: false #If true, only display new issues since the last commit
+  fix: true #If true, automatically attempts to fix issues
+  whole-files: true #If true, check entire files instead of changes since the last commit
+  exclude-dirs:
+    - vendor/
+    - testdata/
+    - examples/
+    - Godeps/
+  exclude-rules:
+    - path: ".*\\.gen\\.go"
+      linters:
+        - gofmt
+    - path: ".*\\.pb\\.go"
+      linters:
+        - staticcheck
+output:
+  formats: 
+    - format: colored-line-number
+
+  print-issued-lines: true #Print the lines where the errors were found
+  print-linter-name: true #Print linter name in the end of issue text, default is true
+  uniq-by-line: true #Make issues output unique by line, default is true
+  
+  sort-order:
+    - linter
+    - severity
+    - file #filepath, line, and column
+
+  sort-results: true #Sort results by the order defined in `sort-order`. Default: false
