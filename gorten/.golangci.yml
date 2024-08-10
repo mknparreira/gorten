@@ -26,6 +26,26 @@ linters-settings:
       - io.Close
       - os.Close
       - ioutil.ReadAll #Ignore specific errors
+  
+  stylecheck:
+    checks: ["all", "-ST1000", "-ST1005"]
+    
+  revive:
+    rules:
+      - name: package-comments
+        disabled: true
+      - name: empty-lines
+        severity: warning
+        disabled: false
+      - name: use-any
+        severity: warning
+        disabled: false
+      - name:  unused-parameter
+        severity: error
+        disabled: false
+      - name: empty-block
+        severity: warning
+        disabled: false
 
 linters:
   enable:
@@ -38,6 +58,8 @@ linters:
     - gofmt #Check code formatting
     - gocyclo #Check cyclomatic complexity
     - goconst #Suggests use of constants for strings and repeated numbers
+    - revive
+    - stylecheck
 
   presets:
     - bugs

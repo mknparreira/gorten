@@ -2,6 +2,7 @@ package main
 
 import (
 	"gorten/internal/gorten/api"
+	"gorten/internal/gorten/api/middlewares"
 	"gorten/internal/gorten/config"
 	"log"
 
@@ -12,6 +13,7 @@ func main() {
 	config.LoadConfig()
 
 	r := gin.Default()
+	r.Use(middlewares.ErrorHandlerMiddleware())
 
 	api.SetupRoutes(r)
 
