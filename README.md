@@ -45,7 +45,7 @@ Binding from order_exchange to queue order_created
 
 **Routing Key:** order.created
 
-**Description:** When a new order is created in the system, an event with the routing key order.created is published to the order_exchange. This binding ensures that the event is routed to the order_created queue, where it can be processed by a consumer that handles new order creation logic, such as sending a confirmation email or updating the order management system.
+**Description:** When a order is created, an event with the routing key order.created is published to the order_exchange. This binding ensures that the event is routed to the order_created queue, where it can be processed by a consumer that handles new order creation logic, such as sending a confirmation email or updating the order management system.
 
 Binding from order_exchange to order_paid
 
@@ -57,11 +57,11 @@ Binding from product_exchange to inventory_update
 
 **Routing Key:** product.added, product.updated
 
-**Description:** When a new product is added or an existing product is updated in the system, events with routing keys product.added or product.updated are published to the product_exchange. This binding ensures that these events are routed to the inventory_update queue, where they can be processed by a consumer that updates the inventory system, ensuring that stock levels and product details are accurate and up to date.
+**Description:** When a new product is added or an existing product is updated, events with routing keys product.added or product.updated are published to the product_exchange. This binding ensures that these events are routed to the inventory_update queue, where they can be processed by a consumer that updates the inventory system, ensuring that stock levels and product details are accurate and up to date.
 
 Binding from notification_exchange to email_notifications
 
-**Description:** When a notification event occurs, such as a user signing up or an order being shipped, the event is published to the notification_exchange. This binding ensures that the event is routed to the email_notifications queue, where it can be processed by a consumer that sends out email notifications to users, keeping them informed about the status of their orders or other important updates.
+**Description:** When a notification event occurs, such as a user signing up or an order being shipped, the event is published to the notification_exchange. This binding ensures that the event is routed to the email_notifications queue, where it can be processed by a consumer that sends out email notifications to users, keeping them informed about the status of their orders.
 
 ## Roadmap
 
@@ -70,33 +70,34 @@ The project will be divided into the following phases:
 1. API Gateway Installation **(done)**
 2. RabbitMQ Installation **(done)**
 3. MongoDB Installation **(done)**
-4. User resource
-5. Company resource
-6. Category resource
-7. Products resource
-8. Orders and Orders Items resource
-9. Payments resource
-10. Shopping Cart resource
-11. Checkout resource
-12. Enhance API Security
-13. Kubernetes Installation
-14. Enhance API Resilience
-15. Enhance API Scalability
-16. Monitoring & Tracing
-17. The Open API Documentation
-18. Future features
+4. Gin Framework installation **(done)**
+5. User resource
+6. Company resource
+7. Category resource
+8. Product resource
+9. Order resource
+10. Payment resource
+11. Shopping Cart resource
+12. Checkout resource
+13. Enhance API Security
+14. Kubernetes Installation
+15. Enhance API Resilience
+16. Enhance API Scalability
+17. Monitoring & Tracing
+18. The Open API Documentation
+19. Future features
 
 # 1. API Gateway Installation
 
 ## Features
 
-| Package                                          | Description                                                                                                                                                                                    |
-| ------------------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| [Kong](https://konghq.com/products/kong-gateway) | API Gateway                                                                                                                                                                                    |
-| Authentication using JWT Kong Plugin             | All APIs will only be accessed by a JWT token                                                                                                                                                  |
-| Fall-safe using request-termination Kong Plugin  | Implements rejection of unauthorized requests to implement a security policy that rejects any request not associated with a defined route. This is done by checking if the route is configured |
-| The Response Transformer plugin                  | Add HTTP Headers to avoid XSS and Clickjacking attacks                                                                                                                                         |
-| Docker                                           |                                                                                                                                                                                                |
+| Package                                                                                                                    | Description                                                                                                                                                                                    |
+| -------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| [Kong](https://konghq.com/products/kong-gateway)                                                                           | API Gateway                                                                                                                                                                                    |
+| Authentication using JWT Kong Plugin                                                                                       | All APIs will only be accessed by a JWT token                                                                                                                                                  |
+| Fall-safe using [request-termination Kong Plugin](https://docs.konghq.com/hub/kong-inc/request-termination/configuration/) | Implements rejection of unauthorized requests to implement a security policy that rejects any request not associated with a defined route. This is done by checking if the route is configured |
+| [The Response Transformer plugin](https://docs.konghq.com/hub/kong-inc/response-transformer/)                              | Add HTTP Headers to avoid XSS and Clickjacking attacks                                                                                                                                         |
+| [Docker](https://www.docker.com/)                                                                                          | It makes it easy to create, deploy, and run applications, portable containers that work the same everywhere                                                                                    |
 
 # 2. RabbitMQ Installation
 
@@ -147,47 +148,58 @@ ME_CONFIG_BASICAUTH_PASSWORD=qwert
 
 To override these defaults, you can set the environment variables in your .env file.
 
-# 4. User resource
+# 4. API Gateway Installation
+
+## Features
+
+| Package                                                                        | Description                                                                                                                                                    |
+| ------------------------------------------------------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| [Gin framework](https://gin-gonic.com/)                                        | Facilitate fast and lightweight HTTP routing and middleware management.                                                                                        |
+| [Golangci-lint](https://golangci-lint.run/)                                    | Robust linting, ensuring code quality and consistency                                                                                                          |
+| Exception handler                                                              | Middleware to handle with exceptions                                                                                                                           |
+| [Standards project layout](https://github.com/golang-standards/project-layout) | Implemented a scaffolding following best practices using the golang-standards repository. This scaffolding provides a solid foundation for further development |
+
+# 5. User resource
 
 TBD
 
-# 5. Company resource
+# 6. Company resource
 
 TBD
 
-# 6. Category resource
+# 7. Category resource
 
 TBD
 
-# 7. Products resource
+# 8. Product resource
 
 TBD
 
-# 8. Orders and Orders Items resource
+# 9. Order resource
 
 TBD
 
-# 9. Payments resource
+# 10. Payment resource
 
 TBD
 
-# 10. Shopping Cart resource
+# 11. Shopping Cart resource
 
 TBD
 
-# 11. Checkout resource
+# 12. Checkout resource
 
 TBD
 
-# 12. Enhance API Security
+# 13. Enhance API Security
 
 TBD
 
-# 13. Kubernetes Installation
+# 14. Kubernetes Installation
 
 TBD
 
-# 14. Enhance API Resilience
+# 15. Enhance API Resilience
 
 In this phase, I will implement some strategies to improve the resilience of APIs, ensuring they can handle with failures and recover effectively. I will adopting the following strategies and tools:
 
@@ -195,12 +207,12 @@ In this phase, I will implement some strategies to improve the resilience of API
 - Implement Circuit Breaker using Hystrix-Go package.
 - Implement retries e backoff using Retry-Go package.
 - Configure timeout into the entire services in Kong API Gateway
-- Implement Fallback Pattern using Go-Fallback or Resilience4j package (I’m not sure yet).
+- Implement Fallback Pattern using Go-Fallback or Resilience4j package (I haven't chosen yet).
 - Implement Bulkheads.
 - Implement Active Health Checks in Kong API Gateway
 - Implement Failover strategies with Kubernetes (replicaSet)
 
-# 15. Enhance API Scalability
+# 16. Enhance API Scalability
 
 To ensure API Scalability and can handle increasing demand effectively, I will adopting the following strategies and tools:
 
@@ -208,21 +220,21 @@ To ensure API Scalability and can handle increasing demand effectively, I will a
 - Implement Caching with Redis
 - Implement Rate Limiting Using the Kong Plugin
 
-# 16. Monitoring & Tracing
+# 17. Monitoring & Tracing
 
 This phase I will integrating monitoring through the entire system to ensure visibility and performance management. The goal is to provide real-time insights, track system health, and identify potential issues early by monitoring various metrics, logs, and events across all services. This will help in maintaining system reliability and performance.
 
 - Implement monitoring across all services (I haven´t chosen the application yet)
 - Implement Distributed Tracing with Jaeger
 
-# 17. The Open API Documentation
+# 18. The Open API Documentation
 
 In this phase, the OpenAPI documentation will be created for every API within the project. This documentation will serve as a detailed reference with all available endpoints, request and response formats, and authentication methods by using the OpenAPI specifications.
 
 - Provide The OpenAPI Documentation with [Swagger](https://swagger.io/) for All APIs
 - Provide [AsyncAPI](https://www.asyncapi.com/en) documentation for asyncasynchronous APIs
 
-# 18. Future features
+# 19. Future features
 
 | Feature / Application | Description                   |
 | --------------------- | ----------------------------- |
