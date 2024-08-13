@@ -91,13 +91,13 @@ The project will be divided into the following phases:
 
 ## Features
 
-| Package                                                                                                                    | Description                                                                                                                                                                                    |
-| -------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| [Kong](https://konghq.com/products/kong-gateway)                                                                           | API Gateway                                                                                                                                                                                    |
-| Authentication using JWT Kong Plugin                                                                                       | All APIs will only be accessed by a JWT token                                                                                                                                                  |
-| Fall-safe using [request-termination Kong Plugin](https://docs.konghq.com/hub/kong-inc/request-termination/configuration/) | Implements rejection of unauthorized requests to implement a security policy that rejects any request not associated with a defined route. This is done by checking if the route is configured |
-| [The Response Transformer plugin](https://docs.konghq.com/hub/kong-inc/response-transformer/)                              | Add HTTP Headers to avoid XSS and Clickjacking attacks                                                                                                                                         |
-| [Docker](https://www.docker.com/)                                                                                          | It makes it easy to create, deploy, and run applications, portable containers that work the same everywhere                                                                                    |
+| Package                                                                                               | Description                                                                                                                                                                                    |
+| ----------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| [Kong](https://konghq.com/products/kong-gateway)                                                      | API Gateway                                                                                                                                                                                    |
+| Authentication using JWT Kong Plugin                                                                  | All APIs will only be accessed by a JWT token                                                                                                                                                  |
+| [Request termination plugin](https://docs.konghq.com/hub/kong-inc/request-termination/configuration/) | Implements rejection of unauthorized requests to implement a security policy that rejects any request not associated with a defined route. This is done by checking if the route is configured |
+| [Response transformer plugin](https://docs.konghq.com/hub/kong-inc/response-transformer/)             | Add HTTP Headers to avoid XSS and Clickjacking attacks                                                                                                                                         |
+| [Docker](https://www.docker.com/)                                                                     | It makes it easy to create, deploy, and run applications, portable containers that work the same everywhere                                                                                    |
 
 # 2. RabbitMQ Installation
 
@@ -105,7 +105,7 @@ To set up RabbitMQ for this project, we've provided an automated shell script th
 
 ## Running the Setup Script
 
-The setup script (setup-rabbitmq.sh) is designed to be executed automatically when the RabbitMQ container starts. This script performs the following actions:
+The setup script **setup-rabbitmq.sh** is designed to be executed automatically when the RabbitMQ container starts. This script performs the following actions:
 
 - Waits for RabbitMQ to Start: The script waits until RabbitMQ's management API is available before proceeding with configuration.
 - Creates an Admin User: A dedicated RabbitMQ admin user (rabbitmq_admin) is created with the specified password.
@@ -148,7 +148,7 @@ ME_CONFIG_BASICAUTH_PASSWORD=qwert
 
 To override these defaults, you can set the environment variables in your .env file.
 
-# 4. API Gateway Installation
+# 4. Gin Framework installation
 
 ## Features
 
@@ -231,8 +231,8 @@ This phase I will integrating monitoring through the entire system to ensure vis
 
 In this phase, the OpenAPI documentation will be created for every API within the project. This documentation will serve as a detailed reference with all available endpoints, request and response formats, and authentication methods by using the OpenAPI specifications.
 
-- Provide The OpenAPI Documentation with [Swagger](https://swagger.io/) for All APIs
-- Provide [AsyncAPI](https://www.asyncapi.com/en) documentation for asyncasynchronous APIs
+- Provide The OpenAPI Documentation with [Swagger](https://swagger.io/) for synchronous APIs
+- Provide [AsyncAPI](https://www.asyncapi.com/en) documentation for asynchronous APIs
 
 # 19. Future features
 
