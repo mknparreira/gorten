@@ -6,18 +6,24 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func ListUsers(c *gin.Context) {
+type UserHandler struct{}
+
+func User() *UserHandler {
+	return &UserHandler{}
+}
+
+func (h *UserHandler) List(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"message": "list of users"})
 }
 
-func ListUser(c *gin.Context) {
+func (h *UserHandler) UserByID(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"message": "listing a specific user"})
 }
 
-func CreateUser(c *gin.Context) {
+func (h *UserHandler) Create(c *gin.Context) {
 	c.JSON(http.StatusCreated, gin.H{"message": "user created"})
 }
 
-func UpdateUser(c *gin.Context) {
-	c.JSON(http.StatusCreated, gin.H{"message": "user updated"})
+func (h *UserHandler) UpdateByID(c *gin.Context) {
+	c.JSON(http.StatusOK, gin.H{"message": "user update"})
 }
