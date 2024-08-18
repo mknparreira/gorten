@@ -8,9 +8,16 @@ import (
 
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
+	"go.mongodb.org/mongo-driver/mongo/readpref"
 )
 
-var MongoClient *mongo.Client
+type MongoClientInterface interface {
+	Ping(ctx context.Context, rp *readpref.ReadPref) error
+	Disconnect(ctx context.Context) error
+	Database(name string, opts ...*options.DatabaseOptions) *mongo.Database
+}
+
+var MongoClient MongoClientInterface
 
 func Connect(uri string) (context.Context, context.CancelFunc) {
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)

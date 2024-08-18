@@ -10,6 +10,13 @@ import (
 	"go.mongodb.org/mongo-driver/mongo"
 )
 
+type UserRepositoryImpl interface {
+	GetAll(ctx context.Context) ([]models.User, error)
+	GetByID(ctx context.Context, id string) (*models.User, error)
+	Create(ctx context.Context, user *models.User) error
+	Update(ctx context.Context, user *models.User) error
+}
+
 type UserRepository struct {
 	collection *mongo.Collection
 }
@@ -19,20 +26,20 @@ func UserRepositoryInit(client *mongo.Client, dbName, collectionName string) *Us
 	return &UserRepository{collection: collection}
 }
 
-func (r *UserRepository) GetAll() ([]models.User, error) {
+func (r *UserRepository) GetAll(ctx context.Context) ([]models.User, error) {
 	var users []models.User
-	cursor, err := r.collection.Find(context.TODO(), bson.M{})
+	cursor, err := r.collection.Find(ctx, bson.M{})
 	if err != nil {
 		return nil, fmt.Errorf("could not fetch users: %w", err)
 	}
 
 	defer func() {
-		if err := cursor.Close(context.TODO()); err != nil {
+		if err := cursor.Close(ctx); err != nil {
 			fmt.Printf("error closing cursor: %v\n", err)
 		}
 	}()
 
-	for cursor.Next(context.TODO()) {
+	for cursor.Next(ctx) {
 		var user models.User
 		if err := cursor.Decode(&user); err != nil {
 			return nil, fmt.Errorf("could not decode user: %w", err)
@@ -47,9 +54,10 @@ func (r *UserRepository) GetAll() ([]models.User, error) {
 	return users, nil
 }
 
-func (r *UserRepository) GetByID(id string) (*models.User, error) {
+func (r *UserRepository) GetByID(ctx context.Context, id string) (*models.User, error) {
 	var user models.User
-	err := r.collection.FindOne(context.TODO(), bson.M{"_id": id}).Decode(&user)
+	filter := bson.M{"_id": id}
+	err := r.collection.FindOne(ctx, filter).Decode(&user)
 	if err != nil {
 		if errors.Is(err, mongo.ErrNoDocuments) {
 			return nil, fmt.Errorf("user not found: %w", err)
@@ -59,16 +67,17 @@ func (r *UserRepository) GetByID(id string) (*models.User, error) {
 	return &user, nil
 }
 
-func (r *UserRepository) Create(user *models.User) error {
-	_, err := r.collection.InsertOne(context.TODO(), user)
+func (r *UserRepository) Create(ctx context.Context, user *models.User) error {
+	_, err := r.collection.InsertOne(ctx, user)
 	if err != nil {
 		return fmt.Errorf("could not create user: %w", err)
 	}
 	return nil
 }
 
-func (r *UserRepository) Update(user *models.User) error {
-	_, err := r.collection.ReplaceOne(context.TODO(), bson.M{"_id": user.UserID}, user)
+func (r *UserRepository) Update(ctx context.Context, user *models.User) error {
+	filter := bson.M{"_id": user.UserID}
+	_, err := r.collection.ReplaceOne(ctx, filter, user)
 	if err != nil {
 		return fmt.Errorf("could not update user: %w", err)
 	}
