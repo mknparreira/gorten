@@ -1,29 +1,83 @@
 package handlers
 
 import (
+	"gorten/internal/gorten/models"
+	"gorten/internal/gorten/services"
+	pkgerr "gorten/pkg/errors"
+	"log"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
 )
 
-type UserHandler struct{}
+type UserHandlerImpl interface {
+	List(c *gin.Context)
+	UserByID(c *gin.Context)
+	Create(c *gin.Context)
+	UpdateByID(c *gin.Context)
+}
 
-func User() *UserHandler {
-	return &UserHandler{}
+type UserHandler struct {
+	userService services.UserServiceImpl
+}
+
+func User(s services.UserServiceImpl) *UserHandler {
+	return &UserHandler{userService: s}
 }
 
 func (h *UserHandler) List(c *gin.Context) {
-	c.JSON(http.StatusOK, gin.H{"message": "list of users"})
+	users, err := h.userService.List(c)
+	if err != nil {
+		_ = c.Error(err)
+		return
+	}
+	c.JSON(http.StatusOK, gin.H{"users": users})
 }
 
 func (h *UserHandler) UserByID(c *gin.Context) {
-	c.JSON(http.StatusOK, gin.H{"message": "listing a specific user"})
+	userID := c.Param("id")
+	user, err := h.userService.GetByID(c, userID)
+	if err != nil {
+		_ = c.Error(err)
+		return
+	}
+	c.JSON(http.StatusOK, gin.H{"user": user})
 }
 
 func (h *UserHandler) Create(c *gin.Context) {
-	c.JSON(http.StatusCreated, gin.H{"message": "user created"})
+	var newUser models.User
+	if err := c.BindJSON(&newUser); err != nil {
+		log.Printf("Error on UserHandler::Create. Reason: %v", err)
+		//The error from c.Error() matches the argument, so no need to check
+		_ = c.Error(pkgerr.ErrInvalidRequestPayload)
+		return
+	}
+
+	err := h.userService.Create(c, &newUser)
+	if err != nil {
+		_ = c.Error(err)
+		return
+	}
+
+	c.JSON(http.StatusCreated,
+		gin.H{
+			"message": http.StatusText(http.StatusCreated),
+			"user":    newUser,
+		},
+	)
 }
 
 func (h *UserHandler) UpdateByID(c *gin.Context) {
-	c.JSON(http.StatusOK, gin.H{"message": "user update"})
+	id := c.Param("id")
+	var user models.User
+	if err := c.BindJSON(&user); err != nil {
+		_ = c.Error(err)
+		return
+	}
+	err := h.userService.UpdateByID(c, id, &user)
+	if err != nil {
+		_ = c.Error(err)
+		return
+	}
+	c.JSON(http.StatusNoContent, nil)
 }

@@ -1,8 +1,9 @@
 package middlewares
 
 import (
+	"errors"
 	"gorten/internal/gorten/models"
-	"gorten/pkg/errors"
+	pkgerr "gorten/pkg/errors"
 	"log"
 	"net/http"
 
@@ -17,7 +18,7 @@ func ErrorHandlerMiddleware() gin.HandlerFunc {
 
 				c.JSON(http.StatusInternalServerError, models.ErrorResponse{
 					Code:    http.StatusInternalServerError,
-					Message: errors.ErrInternalServerError.Error(),
+					Message: pkgerr.ErrInternalServerError.Error(),
 				})
 				c.Abort()
 			}
@@ -27,11 +28,22 @@ func ErrorHandlerMiddleware() gin.HandlerFunc {
 
 		if len(c.Errors) > 0 {
 			err := c.Errors.Last().Err
+			statusCode, errorMessage := mapErrors(err)
 
-			c.JSON(c.Writer.Status(), models.ErrorResponse{
-				Code:    c.Writer.Status(),
-				Message: err.Error(),
+			c.JSON(statusCode, models.ErrorResponse{
+				Code:    statusCode,
+				Message: errorMessage,
 			})
+			c.Abort()
 		}
 	}
+}
+
+func mapErrors(err error) (int, string) {
+	var customErr *pkgerr.CustomError
+	if errors.As(err, &customErr) {
+		return customErr.StatusCode, customErr.Message
+	}
+
+	return http.StatusInternalServerError, "An unexpected error occurred"
 }

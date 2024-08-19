@@ -19,8 +19,8 @@ func (m *MockUserRepository) GetAll(ctx context.Context) ([]models.User, error) 
 	return users, err
 }
 
-func (m *MockUserRepository) GetByID(ctx context.Context, id string) (*models.User, error) {
-	args := m.Called(ctx, id)
+func (m *MockUserRepository) GetByID(ctx context.Context, userID string) (*models.User, error) {
+	args := m.Called(ctx, userID)
 	user, _ := args.Get(0).(*models.User)
 	err, _ := args.Get(1).(error)
 	return user, err

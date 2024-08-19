@@ -12,7 +12,7 @@ import (
 
 type UserRepositoryImpl interface {
 	GetAll(ctx context.Context) ([]models.User, error)
-	GetByID(ctx context.Context, id string) (*models.User, error)
+	GetByID(ctx context.Context, userID string) (*models.User, error)
 	Create(ctx context.Context, user *models.User) error
 	Update(ctx context.Context, user *models.User) error
 }
@@ -54,9 +54,10 @@ func (r *UserRepository) GetAll(ctx context.Context) ([]models.User, error) {
 	return users, nil
 }
 
-func (r *UserRepository) GetByID(ctx context.Context, id string) (*models.User, error) {
+func (r *UserRepository) GetByID(ctx context.Context, userID string) (*models.User, error) {
 	var user models.User
-	filter := bson.M{"_id": id}
+	filter := bson.M{"userId": userID}
+
 	err := r.collection.FindOne(ctx, filter).Decode(&user)
 	if err != nil {
 		if errors.Is(err, mongo.ErrNoDocuments) {
@@ -64,6 +65,7 @@ func (r *UserRepository) GetByID(ctx context.Context, id string) (*models.User, 
 		}
 		return nil, fmt.Errorf("could not fetch user: %w", err)
 	}
+
 	return &user, nil
 }
 
@@ -72,14 +74,17 @@ func (r *UserRepository) Create(ctx context.Context, user *models.User) error {
 	if err != nil {
 		return fmt.Errorf("could not create user: %w", err)
 	}
+
 	return nil
 }
 
 func (r *UserRepository) Update(ctx context.Context, user *models.User) error {
-	filter := bson.M{"_id": user.UserID}
+	filter := bson.M{"userId": user.UserID}
+
 	_, err := r.collection.ReplaceOne(ctx, filter, user)
 	if err != nil {
 		return fmt.Errorf("could not update user: %w", err)
 	}
+
 	return nil
 }

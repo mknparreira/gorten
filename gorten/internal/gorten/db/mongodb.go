@@ -19,7 +19,7 @@ type MongoClientInterface interface {
 
 var MongoClient MongoClientInterface
 
-func Connect(uri string) (context.Context, context.CancelFunc) {
+func Connect(uri string) (context.Context, context.CancelFunc, *mongo.Client) {
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	//Remove resources associated with the context as soon as they are no longer needed
 	defer cancel()
@@ -37,7 +37,7 @@ func Connect(uri string) (context.Context, context.CancelFunc) {
 	MongoClient = client
 	log.Println("MongoDB connected!")
 
-	return ctx, cancel
+	return ctx, cancel, client
 }
 
 func Disconnect(ctx context.Context, cancel context.CancelFunc) {

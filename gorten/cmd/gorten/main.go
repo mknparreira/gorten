@@ -1,36 +1,41 @@
 package main
 
 import (
-	"github.com/joho/godotenv"
-
-	"gorten/internal/gorten/api"
-	"gorten/internal/gorten/api/middlewares"
-	"gorten/internal/gorten/config"
-	"gorten/internal/gorten/db"
+	"context"
 	"log"
-	"os"
+	"path/filepath"
 
 	"github.com/gin-gonic/gin"
+	"github.com/joho/godotenv"
+	"go.uber.org/fx"
+
+	"gorten/internal/gorten/api/providers"
 )
 
 func main() {
-	config.LoadConfig()
-
-	env := godotenv.Load()
-	if env != nil {
-		log.Fatalf("Failed to load .env: %v", env)
+	envPath := filepath.Join("../../", ".env")
+	if err := godotenv.Load(envPath); err != nil {
+		log.Fatalf("Failed to load .env: %v", err)
 	}
 
-	ctx, cancel := db.Connect(os.Getenv("MONGODB_CONNECT_URL"))
-	//Ensure disconnect after execution
-	defer db.Disconnect(ctx, cancel)
+	app := fx.New(
+		fx.Provide(
+			providers.DatabaseProvider,
+			providers.MiddlewaresProvider,
+		),
+		providers.ModulesProvider(),
+		fx.Invoke(startServer),
+	)
 
-	r := gin.Default()
-	r.Use(middlewares.ErrorHandlerMiddleware())
+	//It starts all registered initialization hooks, including those that are part
+	//of the fx.Lifecycle and functions invoked via fx.Invoke.
+	if err := app.Start(context.Background()); err != nil {
+		log.Fatalf("Failed to start app: %v", err)
+	}
+}
 
-	api.SetupRoutes(r)
-
-	if err := r.Run(); err != nil {
+func startServer(r *gin.Engine) {
+	if err := r.Run(":8080"); err != nil {
 		log.Fatalf("Failed to run server: %v", err)
 	}
 }

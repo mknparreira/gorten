@@ -25,3 +25,5 @@ gorten/.env
 # Go workspace file
 go.work
 go.work.sum
+
+.vscode/
