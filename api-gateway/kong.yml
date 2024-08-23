@@ -1,6 +1,30 @@
 _format_version: "2.1"
 _transform: true
 
+services:
+  - name: users-service
+    url: http://localhost:8080/v1/
+    routes:
+      - name: users
+        paths:
+          - /users
+        methods:
+          - GET
+      - name: user-list
+        paths:
+          - /users/{userId}
+        methods:
+          - GET    
+      - name: user-create
+        paths:
+          - /users
+        methods:
+          - POST
+      - name: user-update
+        paths:
+          - /users/{userId}
+        methods:
+          - PUT
 plugins:
   - name: jwt
     config:

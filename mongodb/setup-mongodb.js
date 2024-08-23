@@ -7,8 +7,8 @@ db.createCollection('users', {
       required: ['userId', 'name', 'email', 'password'],
       properties: {
         userId: {
-          bsonType: 'int',
-          description: 'must be an integer and is required'
+          bsonType: 'string',
+          description: 'must be an string and is required'
         },
         name: {
           bsonType: 'string',

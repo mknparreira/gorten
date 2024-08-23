@@ -71,7 +71,7 @@ The project will be divided into the following phases:
 2. RabbitMQ Installation **(done)**
 3. MongoDB Installation **(done)**
 4. Gin Framework installation **(done)**
-5. User resource
+5. User resource **(ongoing)**
 6. Company resource
 7. Category resource
 8. Product resource
@@ -161,7 +161,17 @@ To override these defaults, you can set the environment variables in your .env f
 
 # 5. User resource
 
-TBD
+The User resource, including repository, service, module, model, and handler layers.
+
+## Features
+
+| Package                                                       | Description                                           |
+| ------------------------------------------------------------- | ----------------------------------------------------- |
+| [Testify](https://github.com/stretchr/testify)                | Library for assertions and mocks                      |
+| [Go Mongo Driver](https://github.com/mongodb/mongo-go-driver) | Go's official MongoDB driver for database integration |
+| [Go Dotenv](https://github.com/joho/godotenv)                 | Dotenv library                                        |
+| [Uber Fx](https://github.com/uber-go/fx)                      | Handling with dependency injection                    |
+| [Google UUID](https://github.com/google/uuid)                 | UUID generator for creating User ID                   |
 
 # 6. Company resource
 

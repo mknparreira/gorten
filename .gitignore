@@ -20,7 +20,10 @@
 rabbitmq/.env
 mongodb/.env
 gorten/vendor/*
+gorten/.env
 
 # Go workspace file
 go.work
 go.work.sum
+
+.vscode/

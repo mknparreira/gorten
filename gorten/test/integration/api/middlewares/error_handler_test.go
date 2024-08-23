@@ -6,7 +6,7 @@ import (
 
 	"gorten/internal/gorten/api/middlewares"
 	"gorten/internal/gorten/models"
-	"gorten/pkg/errors"
+	pkgerr "gorten/pkg/errors"
 	"net/http"
 	"net/http/httptest"
 	"testing"
@@ -49,7 +49,7 @@ func TestErrorHandlerMiddleware_Success(t *testing.T) {
 func TestErrorHandlerMiddleware_WithError(t *testing.T) {
 	router := setupRouter()
 	router.GET("/with-error", func(c *gin.Context) {
-		_ = c.Error(errors.ErrSomethingWentWrong)
+		_ = c.Error(pkgerr.ErrSomethingWentWrong)
 		c.Status(http.StatusBadRequest)
 	})
 
@@ -70,7 +70,7 @@ func TestErrorHandlerMiddleware_WithError(t *testing.T) {
 
 	expectedResponse := models.ErrorResponse{
 		Code:    http.StatusBadRequest,
-		Message: errors.ErrSomethingWentWrong.Error(),
+		Message: pkgerr.ErrSomethingWentWrong.Error(),
 	}
 
 	assert.Equal(t, http.StatusBadRequest, w.Code)
@@ -101,7 +101,7 @@ func TestErrorHandlerMiddleware_Panic(t *testing.T) {
 
 	expectedResponse := models.ErrorResponse{
 		Code:    http.StatusInternalServerError,
-		Message: errors.ErrInternalServerError.Error(),
+		Message: pkgerr.ErrInternalServerError.Error(),
 	}
 
 	assert.Equal(t, http.StatusInternalServerError, w.Code)
