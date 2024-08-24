@@ -34,6 +34,7 @@ func (h *UserHandler) List(c *gin.Context) {
 		_ = c.Error(err)
 		return
 	}
+
 	c.JSON(http.StatusOK, gin.H{"users": users})
 }
 
@@ -44,6 +45,7 @@ func (h *UserHandler) UserByID(c *gin.Context) {
 		_ = c.Error(err)
 		return
 	}
+
 	c.JSON(http.StatusOK, gin.H{"user": user})
 }
 
@@ -82,6 +84,13 @@ func (h *UserHandler) UpdateByID(c *gin.Context) {
 	id := c.Param("id")
 	var user models.User
 	if err := c.BindJSON(&user); err != nil {
+		var ve validator.ValidationErrors
+		if errors.As(err, &ve) {
+			log.Printf("Error on validate fields on UserHandler::Update. Reason: %v", err)
+			validation := utils.ValidationErrors(ve)
+			_ = c.Error(validation)
+			return
+		}
 		_ = c.Error(err)
 		return
 	}
@@ -90,5 +99,6 @@ func (h *UserHandler) UpdateByID(c *gin.Context) {
 		_ = c.Error(err)
 		return
 	}
+
 	c.JSON(http.StatusNoContent, nil)
 }

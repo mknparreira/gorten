@@ -26,7 +26,7 @@ func TestMain(m *testing.M) {
 	m.Run()
 }
 
-func TestErrorHandlerMiddleware_Success(t *testing.T) {
+func TestErrorMiddleware_Success(t *testing.T) {
 	router := setupRouter()
 	router.GET("/success", func(c *gin.Context) {
 		c.JSON(http.StatusOK, gin.H{"message": "success"})
@@ -46,7 +46,7 @@ func TestErrorHandlerMiddleware_Success(t *testing.T) {
 	assert.JSONEq(t, expectedResponse, w.Body.String())
 }
 
-func TestErrorHandlerMiddleware_WithError(t *testing.T) {
+func TestErrorMiddleware_WithError(t *testing.T) {
 	router := setupRouter()
 	router.GET("/with-error", func(c *gin.Context) {
 		_ = c.Error(pkgerr.ErrSomethingWentWrong)
@@ -77,7 +77,7 @@ func TestErrorHandlerMiddleware_WithError(t *testing.T) {
 	assert.Equal(t, expectedResponse, resp)
 }
 
-func TestErrorHandlerMiddleware_Panic(t *testing.T) {
+func TestErrorMiddleware_Panic(t *testing.T) {
 	router := setupRouter()
 	router.GET("/panic", func(_ *gin.Context) {
 		panic("unexpected error")

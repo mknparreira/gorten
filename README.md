@@ -98,10 +98,17 @@ The project will be divided into the following phases:
 | [Request termination plugin](https://docs.konghq.com/hub/kong-inc/request-termination/configuration/) | Implements rejection of unauthorized requests to implement a security policy that rejects any request not associated with a defined route. This is done by checking if the route is configured |
 | [Response transformer plugin](https://docs.konghq.com/hub/kong-inc/response-transformer/)             | Add HTTP Headers to avoid XSS and Clickjacking attacks                                                                                                                                         |
 | [Docker](https://www.docker.com/)                                                                     | It makes it easy to create, deploy, and run applications, portable containers that work the same everywhere                                                                                    |
+| [CORS](https://docs.konghq.com/hub/kong-inc/cors/)                                                    | Enable CORS. CORS allowing resources to be requested from another domain outside the domain from which the resource originated                                                                 |
 
 # 2. RabbitMQ Installation
 
 To set up RabbitMQ for this project, we've provided an automated shell script that configures the necessary exchanges, queues, and bindings. Follow the instructions below to get RabbitMQ up and running.
+
+## Features
+
+| Package                               | Description         |
+| ------------------------------------- | ------------------- |
+| [RabbitMQ](https://www.rabbitmq.com/) | AMQP Message Broker |
 
 ## Running the Setup Script
 
@@ -128,6 +135,12 @@ To override these defaults, you can set the environment variables in your .env f
 The `setup-mongo.js` script is automatically executed when the MongoDB container is started, ensuring that all necessary collections and their validation rules are created.
 
 Mongo Express allows easy inspection and management of MongoDB collections through a web interface.
+
+## Features
+
+| Package                             | Description     |
+| ----------------------------------- | --------------- |
+| [MongoDB](https://www.mongodb.com/) | NO SQL Database |
 
 **Environment Variables**
 
@@ -169,7 +182,7 @@ The User resource, including repository, service, module, model, and handler lay
 | ------------------------------------------------------------- | --------------------------------------- |
 | [Testify](https://github.com/stretchr/testify)                | Library for assertions and mocks        |
 | [Go Mongo Driver](https://github.com/mongodb/mongo-go-driver) | MongoDB driver for database integration |
-| [Go Dotenv](https://github.com/joho/godotenv)                 | Dotenv library                          |
+| [Viper](https://github.com/spf13/viper)                       | Handle with configuration               |
 | [Uber Fx](https://github.com/uber-go/fx)                      | Handling with dependency injection      |
 | [Google UUID](https://github.com/google/uuid)                 | UUID generator for creating User ID     |
 | [Validator](https://github.com/go-playground/validator)       | Form and Field validation               |

@@ -6,7 +6,13 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func PingHandler(c *gin.Context) {
+type GeneralHandlerImpl interface {
+	PingHandler(c *gin.Context)
+}
+
+type GeneralHandler struct{}
+
+func (h *GeneralHandler) PingHandler(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{
 		"message": "pong",
 	})

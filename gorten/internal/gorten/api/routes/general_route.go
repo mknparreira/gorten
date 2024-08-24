@@ -7,9 +7,10 @@ import (
 )
 
 func GeneralRoute(r *gin.Engine) *gin.RouterGroup {
+	handler := new(handlers.GeneralHandler)
 	route := r.Group("/api/v1")
 	{
-		route.GET("/ping", handlers.PingHandler)
+		route.GET("/ping", handler.PingHandler)
 	}
 	return route
 }

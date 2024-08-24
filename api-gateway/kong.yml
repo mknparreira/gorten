@@ -11,21 +11,40 @@ services:
         methods:
           - GET
       - name: user-list
-        paths:
-          - /users/{userId}
+        paths: ['/users/.+']
+        strip_path: true
         methods:
-          - GET    
+          - GET
       - name: user-create
         paths:
           - /users
         methods:
           - POST
       - name: user-update
-        paths:
-          - /users/{userId}
+        paths: ['/users/.+']
+        strip_path: true
         methods:
           - PUT
+
 plugins:
+  - name: cors
+    config:
+      origins:
+        - "*"
+      methods:
+        - GET
+        - POST
+        - PUT
+        - PATCH
+        - DELETE
+      headers:
+        - Accept
+        - Authorization
+        - Content-Type
+      exposed_headers:
+        - X-Custom-Header
+      credentials: true
+      max_age: 3600
   - name: jwt
     config:
       uri_param_names:
@@ -35,7 +54,7 @@ plugins:
   - name: request-termination
     config:
       status_code: 403
-      message: "Forbidden: This route is not allowed"   
+      message: "Forbidden: This route is not allowed"
   - name: response-transformer
     config:
       add:
