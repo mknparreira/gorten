@@ -17,7 +17,7 @@ import (
 
 func setupRouter() *gin.Engine {
 	router := gin.New()
-	router.Use(middlewares.ErrorHandlerMiddleware())
+	router.Use(middlewares.ErrorMiddleware())
 	return router
 }
 

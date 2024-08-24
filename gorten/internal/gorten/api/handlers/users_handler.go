@@ -1,13 +1,16 @@
 package handlers
 
 import (
+	"errors"
 	"gorten/internal/gorten/models"
 	"gorten/internal/gorten/services"
 	pkgerr "gorten/pkg/errors"
+	"gorten/pkg/utils"
 	"log"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
+	"github.com/go-playground/validator/v10"
 )
 
 type UserHandlerImpl interface {
@@ -47,6 +50,14 @@ func (h *UserHandler) UserByID(c *gin.Context) {
 func (h *UserHandler) Create(c *gin.Context) {
 	var newUser models.User
 	if err := c.BindJSON(&newUser); err != nil {
+		var ve validator.ValidationErrors
+		if errors.As(err, &ve) {
+			log.Printf("Error on validate fields on UserHandler::Create. Reason: %v", err)
+			validation := utils.ValidationErrors(ve)
+			_ = c.Error(validation)
+			return
+		}
+
 		log.Printf("Error on UserHandler::Create. Reason: %v", err)
 		//The error from c.Error() matches the argument, so no need to check
 		_ = c.Error(pkgerr.ErrInvalidRequestPayload)

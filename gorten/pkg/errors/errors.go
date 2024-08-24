@@ -18,6 +18,13 @@ func NewCustomError(statusCode int, message string) *CustomError {
 	}
 }
 
+func (e *CustomError) WithMessage(message string) *CustomError {
+	return &CustomError{
+		StatusCode: e.StatusCode,
+		Message:    message,
+	}
+}
+
 var (
 	ErrUserNotFound            = NewCustomError(http.StatusNotFound, "user not found")
 	ErrInternalServerError     = NewCustomError(http.StatusInternalServerError, "Internal Server Error")
@@ -26,4 +33,5 @@ var (
 	ErrFailedGenerateUUID      = NewCustomError(http.StatusInternalServerError, "failed to generate UUID")
 	ErrSomethingWentWrong      = NewCustomError(http.StatusBadRequest, "something went wrong")
 	ErrInvalidRequestPayload   = NewCustomError(http.StatusBadGateway, "invalid request payload")
+	ErrValidationFailed        = NewCustomError(http.StatusBadRequest, "validation failed")
 )

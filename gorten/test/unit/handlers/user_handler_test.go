@@ -64,7 +64,11 @@ func TestUserHandler_UserByID(t *testing.T) {
 }
 
 func TestUserHandler_Create(t *testing.T) {
-	newUser := &models.User{UserID: "51a9cbf0-efe9-4331-ae74-8805f813c6e8", Name: "John Doe", Email: "john.doe@example.com"}
+	newUser := &models.User{
+		UserID:   "51a9cbf0-efe9-4331-ae74-8805f813c6e8",
+		Name:     "John Brolie Doe",
+		Email:    "john.doe@example.com",
+		Password: "123456"}
 	ctx := context.Background()
 	mockUserService := new(mocks.MockUserService)
 	mockUserService.On("Create", mock.Anything, newUser).Return(nil)
@@ -72,7 +76,7 @@ func TestUserHandler_Create(t *testing.T) {
 	userHandler := handlers.User(mockUserService)
 	router := setupRouter(userHandler)
 
-	reqBody := `{"userID": "51a9cbf0-efe9-4331-ae74-8805f813c6e8", "name": "John Doe", "email": "john.doe@example.com"}`
+	reqBody := `{"userID": "51a9cbf0-efe9-4331-ae74-8805f813c6e8", "name": "John Brolie Doe", "email": "john.doe@example.com", "Password": "123456"}`
 	req, _ := http.NewRequestWithContext(ctx, "POST", "/api/v1/users", bytes.NewBufferString(reqBody))
 	req.Header.Set("Content-Type", "application/json")
 	w := httptest.NewRecorder()
@@ -90,13 +94,13 @@ func TestUserHandler_UpdateByID(t *testing.T) {
 	userHandler := handlers.User(mockUserService)
 	router := setupRouter(userHandler)
 
-	reqBody := `{"UserID": "51a9cbf0-efe9-4331-ae74-8805f813c6e8", "Name": "John Doe", "Email": "john.doe@example.com"}`
+	reqBody := `{"UserID": "51a9cbf0-efe9-4331-ae74-8805f813c6e8", "Name": "John Broli Doe", "Email": "john.doe@example.com", "Password": "123456"}`
 	req, _ := http.NewRequestWithContext(ctx, "PUT", "/api/v1/users/51a9cbf0-efe9-4331-ae74-8805f813c6e8", bytes.NewBufferString(reqBody))
 	req.Header.Set("Content-Type", "application/json")
 
 	w := httptest.NewRecorder()
 	router.ServeHTTP(w, req)
 
-	assert.Equal(t, http.StatusOK, w.Code)
+	assert.Equal(t, http.StatusNoContent, w.Code)
 	mockUserService.AssertCalled(t, "UpdateByID", mock.Anything, "51a9cbf0-efe9-4331-ae74-8805f813c6e8", mock.AnythingOfType("*models.User"))
 }
