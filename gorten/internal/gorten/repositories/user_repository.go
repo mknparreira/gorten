@@ -34,6 +34,8 @@ func (r *UserRepository) GetAll(ctx context.Context) ([]models.User, error) {
 		return nil, fmt.Errorf("could not fetch users: %w", err)
 	}
 
+	//Defer the execution until the GetAll() finishes,
+	//ensuring that the cursor is closed after the iteration, regardless of errors.
 	defer func() {
 		if err := cursor.Close(ctx); err != nil {
 			fmt.Printf("error closing cursor: %v\n", err)
@@ -42,6 +44,7 @@ func (r *UserRepository) GetAll(ctx context.Context) ([]models.User, error) {
 
 	for cursor.Next(ctx) {
 		var user models.User
+		//cursor.Decode(&user) similar to c.BindJSON() to merge object
 		if err := cursor.Decode(&user); err != nil {
 			return nil, fmt.Errorf("could not decode user: %w", err)
 		}
