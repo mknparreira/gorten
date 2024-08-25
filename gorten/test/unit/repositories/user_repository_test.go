@@ -5,6 +5,7 @@ import (
 	"testing"
 
 	"gorten/internal/gorten/models"
+	"gorten/test/factories"
 	"gorten/test/integration/mocks"
 
 	"github.com/stretchr/testify/assert"
@@ -13,43 +14,44 @@ import (
 
 func TestGetAll(t *testing.T) {
 	ctx := context.Background()
-	expectedUsers := []models.User{
-		{UserID: "a0563613-4d29-4fb0-82ac-b22551eaef14", Name: "John Doe"},
-		{UserID: "84114466-d801-4fd7-aef9-dc728da219b5", Name: "Jane Doe"},
-	}
-	mockRepo := new(mocks.MockUserRepository)
+	userJohn := factories.UserFactory()
+	userJane := factories.UserFactory(func(u *models.User) {
+		u.Name = "Jane Doe"
+	})
 
+	expectedUsers := []models.User{*userJohn, *userJane}
+	mockRepo := new(mocks.MockUserRepository)
 	mockRepo.On("GetAll", ctx).Return(expectedUsers, nil)
 	users, err := mockRepo.GetAll(ctx)
 
 	require.NoError(t, err)
 	assert.Len(t, users, 2)
-	assert.Equal(t, "John Doe", users[0].Name)
-	assert.Equal(t, "Jane Doe", users[1].Name)
+	assert.Equal(t, userJohn.Name, users[0].Name)
+	assert.Equal(t, userJane.Name, users[1].Name)
 	mockRepo.AssertExpectations(t)
 }
 
 func TestGetByID(t *testing.T) {
 	ctx := context.Background()
+	newUser := factories.UserFactory()
 	mockRepo := new(mocks.MockUserRepository)
 
-	user := &models.User{UserID: "675ff6a9-516a-479a-b895-dcf89fd7654e", Name: "John Doe"}
-	mockRepo.On("GetByID", ctx, "675ff6a9-516a-479a-b895-dcf89fd7654e").Return(user, nil)
-	user, err := mockRepo.GetByID(ctx, "675ff6a9-516a-479a-b895-dcf89fd7654e")
+	mockRepo.On("GetByID", ctx, newUser.UserID).Return(newUser, nil)
+	user, err := mockRepo.GetByID(ctx, newUser.UserID)
 
 	require.NoError(t, err)
 	assert.NotNil(t, user)
-	assert.Equal(t, "John Doe", user.Name)
+	assert.Equal(t, newUser.Name, user.Name)
 	mockRepo.AssertExpectations(t)
 }
 
 func TestCreate(t *testing.T) {
 	ctx := context.Background()
+	newUser := factories.UserFactory()
 	mockRepo := new(mocks.MockUserRepository)
 
-	user := &models.User{UserID: "51a9cbf0-efe9-4331-ae74-8805f813c6e8", Name: "John Doe"}
-	mockRepo.On("Create", ctx, user).Return(nil)
-	err := mockRepo.Create(ctx, user)
+	mockRepo.On("Create", ctx, newUser).Return(nil)
+	err := mockRepo.Create(ctx, newUser)
 
 	require.NoError(t, err)
 	mockRepo.AssertExpectations(t)
@@ -57,9 +59,9 @@ func TestCreate(t *testing.T) {
 
 func TestUpdate(t *testing.T) {
 	ctx := context.Background()
+	user := factories.UserFactory()
 	mockRepo := new(mocks.MockUserRepository)
 
-	user := &models.User{UserID: "51a9cbf0-efe9-4331-ae74-8805f813c6e8", Name: "John Doe"}
 	mockRepo.On("Update", ctx, user).Return(nil)
 	err := mockRepo.Update(ctx, user)
 

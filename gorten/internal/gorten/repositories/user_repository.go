@@ -4,6 +4,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"gorten/internal/gorten/config"
 	"gorten/internal/gorten/models"
 
 	"go.mongodb.org/mongo-driver/bson"
@@ -21,8 +22,8 @@ type UserRepository struct {
 	collection *mongo.Collection
 }
 
-func UserRepositoryInit(client *mongo.Client, dbName, collectionName string) *UserRepository {
-	collection := client.Database(dbName).Collection(collectionName)
+func UserRepositoryInit(client *mongo.Client, ctg *config.AppConfig, collectionName string) *UserRepository {
+	collection := client.Database(ctg.Mongo.DBName).Collection(collectionName)
 	return &UserRepository{collection: collection}
 }
 

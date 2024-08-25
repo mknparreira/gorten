@@ -21,6 +21,7 @@ rabbitmq/.env
 mongodb/.env
 gorten/vendor/*
 gorten/.env
+gorten/config.yaml
 
 # Go workspace file
 go.work

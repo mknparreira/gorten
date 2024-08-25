@@ -8,6 +8,6 @@ import (
 
 func MiddlewaresProvider() *gin.Engine {
 	r := gin.Default()
-	r.Use(middlewares.ErrorHandlerMiddleware())
+	r.Use(middlewares.ErrorMiddleware())
 	return r
 }

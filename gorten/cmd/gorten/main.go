@@ -3,23 +3,18 @@ package main
 import (
 	"context"
 	"log"
-	"path/filepath"
 
 	"github.com/gin-gonic/gin"
-	"github.com/joho/godotenv"
 	"go.uber.org/fx"
 
 	"gorten/internal/gorten/api/providers"
+	"gorten/internal/gorten/config"
 )
 
 func main() {
-	envPath := filepath.Join("../../", ".env")
-	if err := godotenv.Load(envPath); err != nil {
-		log.Fatalf("Failed to load .env: %v", err)
-	}
-
 	app := fx.New(
 		fx.Provide(
+			providers.ConfigProvider,
 			providers.DatabaseProvider,
 			providers.MiddlewaresProvider,
 		),
@@ -34,8 +29,8 @@ func main() {
 	}
 }
 
-func startServer(r *gin.Engine) {
-	if err := r.Run(":8080"); err != nil {
+func startServer(r *gin.Engine, cfg *config.AppConfig) {
+	if err := r.Run(":" + cfg.Server.Port); err != nil {
 		log.Fatalf("Failed to run server: %v", err)
 	}
 }

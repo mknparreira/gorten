@@ -13,17 +13,12 @@ func UserModule() fx.Option {
 	return fx.Options(
 		fx.Provide(
 			fx.Annotate(
-				func() string { return "marketplace" },
-				fx.ResultTags(`name:"dbName"`),
-			),
-			fx.Annotate(
 				func() string { return "users" },
 				fx.ResultTags(`name:"collectionName"`),
 			),
-
 			fx.Annotate(
 				repositories.UserRepositoryInit,
-				fx.ParamTags(``, `name:"dbName"`, `name:"collectionName"`),
+				fx.ParamTags(``, ``, `name:"collectionName"`),
 				fx.As(new(repositories.UserRepositoryImpl)),
 			),
 			fx.Annotate(
