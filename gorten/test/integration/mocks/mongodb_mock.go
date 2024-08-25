@@ -2,6 +2,7 @@ package mocks
 
 import (
 	"context"
+	"fmt"
 
 	"github.com/stretchr/testify/mock"
 	"go.mongodb.org/mongo-driver/mongo"
@@ -15,12 +16,18 @@ type MongoClientMock struct {
 
 func (m *MongoClientMock) Ping(ctx context.Context, rp *readpref.ReadPref) error {
 	args := m.Called(ctx, rp)
-	return args.Error(0)
+	if err := args.Error(0); err != nil {
+		return fmt.Errorf("MongoClientMock.Ping: %w", err)
+	}
+	return nil
 }
 
 func (m *MongoClientMock) Disconnect(ctx context.Context) error {
 	args := m.Called(ctx)
-	return args.Error(0)
+	if err := args.Error(0); err != nil {
+		return fmt.Errorf("MongoClientMock.Disconnect: %w", err)
+	}
+	return nil
 }
 
 func (m *MongoClientMock) Database(name string, opts ...*options.DatabaseOptions) *mongo.Database {

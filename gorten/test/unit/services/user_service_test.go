@@ -13,6 +13,8 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
+const janeDoeName = "Jane Doe"
+
 func TestUserService_List(t *testing.T) {
 	ctx := context.Background()
 	user := factories.UserFactory()
@@ -63,7 +65,7 @@ func TestUserService_UpdateByID(t *testing.T) {
 
 	existingUser := factories.UserFactory()
 	updatedUser := factories.UserFactory(func(u *models.User) {
-		u.Name = "Jane Doe"
+		u.Name = janeDoeName
 	})
 
 	mockRepo.On("GetByID", ctx, existingUser.UserID).Return(existingUser, nil)
@@ -82,7 +84,7 @@ func TestUserService_UpdateByID_UserNotFound(t *testing.T) {
 	service := services.UserServiceInit(mockRepo)
 	user := factories.UserFactory()
 	updatedUser := factories.UserFactory(func(u *models.User) {
-		u.Name = "Jane Doe"
+		u.Name = janeDoeName
 	})
 
 	mockRepo.On("GetByID", ctx, user.UserID).Return(nil, errors.ErrUserNotFound)
