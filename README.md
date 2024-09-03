@@ -83,9 +83,10 @@ The project will be divided into the following phases:
 14. Kubernetes Installation
 15. Enhance API Resilience
 16. Enhance API Scalability
-17. Monitoring & Tracing
-18. The Open API Documentation
-19. Future features
+17. Enhance Perfomance
+18. Monitoring & Tracing
+19. The Open API Documentation
+20. Future features
 
 # 1. API Gateway Installation
 
@@ -241,26 +242,38 @@ In this phase, I will implement some strategies to improve the resilience of API
 To ensure API Scalability and can handle increasing demand effectively, I will adopting the following strategies and tools:
 
 - Implement Load Balancing with Kubernetes
-- Implement Caching with Redis
 - Implement Rate Limiting Using the Kong Plugin
 
-# 17. Monitoring & Tracing
+# 17. Enhance Perfomance
+
+- Implement Caching with Redis
+- Compressing response using Gzip
+
+## Features
+
+| Package          | Description                                       |
+| ---------------- | ------------------------------------------------- |
+| Kong Compression | Package to enable Kong to accept Gzip compression |
+| Redis            | Caching system                                    |
+
+# 18. Monitoring & Tracing
 
 This phase I will integrating monitoring through the entire system to ensure visibility and performance management. The goal is to provide real-time insights, track system health, and identify potential issues early by monitoring various metrics, logs, and events across all services. This will help in maintaining system reliability and performance.
 
 - Implement monitoring across all services (I haven´t chosen the application yet)
 - Implement Distributed Tracing with Jaeger
 
-# 18. The Open API Documentation
+# 19. The Open API Documentation
 
 In this phase, the OpenAPI documentation will be created for every API within the project. This documentation will serve as a detailed reference with all available endpoints, request and response formats, and authentication methods by using the OpenAPI specifications.
 
 - Provide The OpenAPI Documentation with [Swagger](https://swagger.io/) for synchronous APIs
 - Provide [AsyncAPI](https://www.asyncapi.com/en) documentation for asynchronous APIs
 
-# 19. Future features
+# 20. Future features
 
 | Feature / Application | Description                   |
 | --------------------- | ----------------------------- |
 | Kubernetes            | Implements Service Register   |
 | Jenkins               | Implements CI/CD with Jenkins |
+| Github Actions        | Add Github Actions            |
