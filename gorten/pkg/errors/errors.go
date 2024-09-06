@@ -34,4 +34,6 @@ var (
 	ErrSomethingWentWrong      = NewCustomError(http.StatusBadRequest, "something went wrong")
 	ErrInvalidRequestPayload   = NewCustomError(http.StatusBadGateway, "invalid request payload")
 	ErrValidationFailed        = NewCustomError(http.StatusBadRequest, "validation failed")
+	ErrPageTooLow              = NewCustomError(http.StatusBadRequest, "page must be greater than 0")
+	ErrLimitTooLow             = NewCustomError(http.StatusBadRequest, "limit must be greater than 0")
 )
