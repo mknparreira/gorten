@@ -30,7 +30,7 @@ func TestUserHandler_List(t *testing.T) {
 	user := factories.UserFactory()
 	expectedUsers := []models.User{*user}
 	mockUserService := new(mocks.MockUserService)
-	mockUserService.On("List", mock.Anything).Return(expectedUsers, nil)
+	mockUserService.On("List", mock.Anything, 0, 10).Return(expectedUsers, nil)
 
 	userHandler := handlers.User(mockUserService)
 	router := setupRouter(userHandler)
@@ -42,7 +42,7 @@ func TestUserHandler_List(t *testing.T) {
 
 	assert.Equal(t, http.StatusOK, w.Code)
 	assert.Contains(t, w.Body.String(), "John Grand Doe")
-	mockUserService.AssertCalled(t, "List", mock.Anything)
+	mockUserService.AssertCalled(t, "List", mock.Anything, 0, 10)
 }
 
 func TestUserHandler_UserByID(t *testing.T) {

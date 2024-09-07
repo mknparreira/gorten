@@ -12,8 +12,8 @@ type MockUserRepository struct {
 	mock.Mock
 }
 
-func (m *MockUserRepository) GetAll(ctx context.Context) ([]models.User, error) {
-	args := m.Called(ctx)
+func (m *MockUserRepository) GetAll(ctx context.Context, skip, limit int) ([]models.User, error) {
+	args := m.Called(ctx, skip, limit)
 	users, _ := args.Get(0).([]models.User)
 	err, _ := args.Get(1).(error)
 	return users, err
