@@ -55,6 +55,10 @@ plugins:
     config:
       status_code: 403
       message: "Forbidden: This route is not allowed"
+  - name: request-transformer
+    config:
+      add:
+        headers: ["X-Request-ID:{{ request_id() }}"]
   - name: response-transformer
     config:
       add:
