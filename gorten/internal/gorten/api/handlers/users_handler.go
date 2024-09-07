@@ -32,6 +32,7 @@ func User(s services.UserServiceImpl) *UserHandler {
 func (h *UserHandler) List(c *gin.Context) {
 	page := c.DefaultQuery("page", "1")
 	limit := c.DefaultQuery("limit", "10")
+	sort := c.DefaultQuery("sort", "desc")
 
 	paginationConfig, err := pagination.PaginationInit(page, limit)
 
@@ -45,7 +46,7 @@ func (h *UserHandler) List(c *gin.Context) {
 		return
 	}
 
-	users, err := h.userService.List(c, paginationConfig.Offset(), paginationConfig.Limit())
+	users, err := h.userService.List(c, paginationConfig.Offset(), paginationConfig.Limit(), sort)
 	if err != nil {
 		_ = c.Error(err)
 		return

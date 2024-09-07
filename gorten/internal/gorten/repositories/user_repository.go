@@ -6,6 +6,8 @@ import (
 	"fmt"
 	"gorten/internal/gorten/config"
 	"gorten/internal/gorten/models"
+	"gorten/pkg/utils"
+	"time"
 
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"
@@ -13,7 +15,7 @@ import (
 )
 
 type UserRepositoryImpl interface {
-	GetAll(ctx context.Context, skip, limit int) ([]models.User, error)
+	GetAll(ctx context.Context, skip int, limit int, sort string) ([]models.User, error)
 	GetByID(ctx context.Context, userID string) (*models.User, error)
 	Create(ctx context.Context, user *models.User) error
 	Update(ctx context.Context, user *models.User) error
@@ -28,12 +30,14 @@ func UserRepositoryInit(client *mongo.Client, ctg *config.AppConfig, collectionN
 	return &UserRepository{collection: collection}
 }
 
-func (r *UserRepository) GetAll(ctx context.Context, skip, limit int) ([]models.User, error) {
+func (r *UserRepository) GetAll(ctx context.Context, skip int, limit int, sort string) ([]models.User, error) {
 	var users []models.User
 	s := int64(skip)
 	l := int64(limit)
+	sorting := bson.D{{Key: "createdAt", Value: utils.ConvertStringSortforInteger(sort)}}
+
 	cursor, err := r.collection.Find(ctx, bson.M{},
-		options.Find().SetSkip(s).SetLimit(l))
+		options.Find().SetSkip(s).SetLimit(l).SetSort(sorting))
 
 	if err != nil {
 		return nil, fmt.Errorf("could not fetch users: %w", err)
@@ -79,6 +83,7 @@ func (r *UserRepository) GetByID(ctx context.Context, userID string) (*models.Us
 }
 
 func (r *UserRepository) Create(ctx context.Context, user *models.User) error {
+	user.CreatedAt = time.Now()
 	_, err := r.collection.InsertOne(ctx, user)
 	if err != nil {
 		return fmt.Errorf("could not create user: %w", err)

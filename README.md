@@ -179,14 +179,14 @@ The User resource, including repository, service, module, model, and handler lay
 
 ## Features
 
-| Package                                                       | Description                             |
-| ------------------------------------------------------------- | --------------------------------------- |
-| [Testify](https://github.com/stretchr/testify)                | Library for assertions and mocks        |
-| [Go Mongo Driver](https://github.com/mongodb/mongo-go-driver) | MongoDB driver for database integration |
-| [Viper](https://github.com/spf13/viper)                       | Handle with configuration               |
-| [Uber Fx](https://github.com/uber-go/fx)                      | Handling with dependency injection      |
-| [Google UUID](https://github.com/google/uuid)                 | UUID generator for creating User ID     |
-| [Validator](https://github.com/go-playground/validator)       | Form and Field validation               |
+| Package                                                       | Description                         |
+| ------------------------------------------------------------- | ----------------------------------- |
+| [Testify](https://github.com/stretchr/testify)                | Library for assertions and mocks    |
+| [Mongo Go Driver](https://github.com/mongodb/mongo-go-driver) | The official Golang MongoDB driver  |
+| [Viper](https://github.com/spf13/viper)                       | Handle with configuration           |
+| [Uber Fx](https://github.com/uber-go/fx)                      | Handling with dependency injection  |
+| [Google UUID](https://github.com/google/uuid)                 | UUID generator for creating User ID |
+| [Validator](https://github.com/go-playground/validator)       | Form and Field validation           |
 
 # 6. Company resource
 

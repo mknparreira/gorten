@@ -39,3 +39,23 @@ func TestUtils_ValidationErrors(t *testing.T) {
 	require.Error(t, resultErr)
 	assert.Contains(t, resultErr.Error(), expectedMessage)
 }
+
+func TestUtils_ConvertStringSortToInteger(t *testing.T) {
+	tests := []struct {
+		name     string
+		sort     string
+		expected int
+	}{
+		{"Ascending", "asc", 1},
+		{"Descending", "desc", -1},
+		{"Empty String", "", -1},
+		{"Invalid String", "invalid", -1},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			result := ConvertStringSortforInteger(tt.sort)
+			assert.Equal(t, tt.expected, result)
+		})
+	}
+}

@@ -22,9 +22,9 @@ func TestUserService_List(t *testing.T) {
 	service := services.UserServiceInit(mockRepo)
 
 	expectedUsers := []models.User{*user}
-	mockRepo.On("GetAll", ctx, 0, 10).Return(expectedUsers, nil)
+	mockRepo.On("GetAll", ctx, 0, 10, "desc").Return(expectedUsers, nil)
 
-	users, err := service.List(ctx, 0, 10)
+	users, err := service.List(ctx, 0, 10, "desc")
 
 	require.NoError(t, err)
 	assert.Equal(t, expectedUsers, users)
