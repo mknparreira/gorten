@@ -71,7 +71,7 @@ The project will be divided into the following phases:
 2. RabbitMQ Installation **(done)**
 3. MongoDB Installation **(done)**
 4. Gin Framework installation **(done)**
-5. User resource **(ongoing)**
+5. User resource **(done)**
 6. Company resource
 7. Category resource
 8. Product resource
