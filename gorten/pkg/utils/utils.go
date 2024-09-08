@@ -24,3 +24,10 @@ func ValidationErrors(ve validator.ValidationErrors) error {
 	}
 	return pkgerr.ErrValidationFailed.WithMessage(fmt.Sprintf("validation failed: %v", out))
 }
+
+func ConvertStringSortforInteger(sort string) int {
+	if sort == "asc" {
+		return 1
+	}
+	return -1
+}

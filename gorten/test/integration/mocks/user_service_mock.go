@@ -12,8 +12,8 @@ type MockUserService struct {
 	mock.Mock
 }
 
-func (m *MockUserService) List(ctx context.Context) ([]models.User, error) {
-	args := m.Called(ctx)
+func (m *MockUserService) List(ctx context.Context, skip int, limit int, sort string) ([]models.User, error) {
+	args := m.Called(ctx, skip, limit, sort)
 
 	users, _ := args.Get(0).([]models.User)
 	err, _ := args.Get(1).(error)

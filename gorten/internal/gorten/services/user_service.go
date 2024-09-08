@@ -10,7 +10,7 @@ import (
 )
 
 type UserServiceImpl interface {
-	List(ctx context.Context) ([]models.User, error)
+	List(ctx context.Context, skip, limit int, sort string) ([]models.User, error)
 	GetByID(ctx context.Context, id string) (*models.User, error)
 	Create(ctx context.Context, user *models.User) error
 	UpdateByID(ctx context.Context, id string, user *models.User) error
@@ -24,8 +24,8 @@ func UserServiceInit(repo repositories.UserRepositoryImpl) *UserService {
 	return &UserService{userRepo: repo}
 }
 
-func (s *UserService) List(ctx context.Context) ([]models.User, error) {
-	users, err := s.userRepo.GetAll(ctx)
+func (s *UserService) List(ctx context.Context, skip, limit int, sort string) ([]models.User, error) {
+	users, err := s.userRepo.GetAll(ctx, skip, limit, sort)
 	if err != nil {
 		log.Printf("Error on UserService::List. Reason: %v", err)
 		return nil, pkgerr.ErrInternalServerError

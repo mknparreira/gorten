@@ -21,8 +21,8 @@ func TestGetAll(t *testing.T) {
 
 	expectedUsers := []models.User{*userJohn, *userJane}
 	mockRepo := new(mocks.MockUserRepository)
-	mockRepo.On("GetAll", ctx).Return(expectedUsers, nil)
-	users, err := mockRepo.GetAll(ctx)
+	mockRepo.On("GetAll", ctx, 0, 10, "desc").Return(expectedUsers, nil)
+	users, err := mockRepo.GetAll(ctx, 0, 10, "desc")
 
 	require.NoError(t, err)
 	assert.Len(t, users, 2)

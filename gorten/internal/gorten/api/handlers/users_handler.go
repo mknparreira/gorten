@@ -5,6 +5,7 @@ import (
 	"gorten/internal/gorten/models"
 	"gorten/internal/gorten/services"
 	pkgerr "gorten/pkg/errors"
+	"gorten/pkg/pagination"
 	"gorten/pkg/utils"
 	"log"
 	"net/http"
@@ -29,7 +30,23 @@ func User(s services.UserServiceImpl) *UserHandler {
 }
 
 func (h *UserHandler) List(c *gin.Context) {
-	users, err := h.userService.List(c)
+	page := c.DefaultQuery("page", "1")
+	limit := c.DefaultQuery("limit", "10")
+	sort := c.DefaultQuery("sort", "desc")
+
+	paginationConfig, err := pagination.PaginationInit(page, limit)
+
+	if err != nil {
+		_ = c.Error(err)
+		return
+	}
+
+	if err := paginationConfig.Validate(); err != nil {
+		_ = c.Error(err)
+		return
+	}
+
+	users, err := h.userService.List(c, paginationConfig.Offset(), paginationConfig.Limit(), sort)
 	if err != nil {
 		_ = c.Error(err)
 		return

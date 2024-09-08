@@ -3,9 +3,11 @@ package handlers_test
 import (
 	"bytes"
 	"context"
+	"encoding/json"
 	"net/http"
 	"net/http/httptest"
 	"testing"
+	"time"
 
 	"gorten/internal/gorten/api/handlers"
 	"gorten/internal/gorten/models"
@@ -30,7 +32,7 @@ func TestUserHandler_List(t *testing.T) {
 	user := factories.UserFactory()
 	expectedUsers := []models.User{*user}
 	mockUserService := new(mocks.MockUserService)
-	mockUserService.On("List", mock.Anything).Return(expectedUsers, nil)
+	mockUserService.On("List", mock.Anything, 0, 10, "desc").Return(expectedUsers, nil)
 
 	userHandler := handlers.User(mockUserService)
 	router := setupRouter(userHandler)
@@ -42,7 +44,7 @@ func TestUserHandler_List(t *testing.T) {
 
 	assert.Equal(t, http.StatusOK, w.Code)
 	assert.Contains(t, w.Body.String(), "John Grand Doe")
-	mockUserService.AssertCalled(t, "List", mock.Anything)
+	mockUserService.AssertCalled(t, "List", mock.Anything, 0, 10, "desc")
 }
 
 func TestUserHandler_UserByID(t *testing.T) {
@@ -64,7 +66,10 @@ func TestUserHandler_UserByID(t *testing.T) {
 }
 
 func TestUserHandler_Create(t *testing.T) {
-	newUser := factories.UserFactory()
+	newUser := factories.UserFactory(func(u *models.User) {
+		u.UserID = ""
+		u.CreatedAt = time.Time{}
+	})
 	ctx := context.Background()
 	mockUserService := new(mocks.MockUserService)
 	mockUserService.On("Create", mock.Anything, newUser).Return(nil)
@@ -72,13 +77,17 @@ func TestUserHandler_Create(t *testing.T) {
 	userHandler := handlers.User(mockUserService)
 	router := setupRouter(userHandler)
 
-	reqBody := `{
-        "userID": "` + newUser.UserID + `",
-        "name": "` + newUser.Name + `",
-        "email": "` + newUser.Email + `",
-        "password": "` + newUser.Password + `"
-    }`
-	req, _ := http.NewRequestWithContext(ctx, "POST", "/api/v1/users", bytes.NewBufferString(reqBody))
+	body := map[string]string{
+		"name":     newUser.Name,
+		"email":    newUser.Email,
+		"password": newUser.Password,
+	}
+	reqBody, err := json.Marshal(body)
+	if err != nil {
+		t.Fatalf("Failed to marshal request body: %v", err)
+	}
+
+	req, _ := http.NewRequestWithContext(ctx, "POST", "/api/v1/users", bytes.NewBuffer(reqBody))
 	req.Header.Set("Content-Type", "application/json")
 	w := httptest.NewRecorder()
 	router.ServeHTTP(w, req)
@@ -96,14 +105,18 @@ func TestUserHandler_UpdateByID(t *testing.T) {
 	userHandler := handlers.User(mockUserService)
 	router := setupRouter(userHandler)
 
-	reqBody := `{
-        "userID": "` + user.UserID + `",
-        "name": "` + user.Name + `",
-        "email": "` + user.Email + `",
-        "password": "` + user.Password + `"
-    }`
+	body := map[string]string{
+		"userID":   user.UserID,
+		"name":     user.Name,
+		"email":    user.Email,
+		"password": user.Password,
+	}
+	reqBody, err := json.Marshal(body)
+	if err != nil {
+		t.Fatalf("Failed to marshal request body: %v", err)
+	}
 
-	req, _ := http.NewRequestWithContext(ctx, "PUT", "/api/v1/users/"+user.UserID, bytes.NewBufferString(reqBody))
+	req, _ := http.NewRequestWithContext(ctx, "PUT", "/api/v1/users/"+user.UserID, bytes.NewBuffer(reqBody))
 	req.Header.Set("Content-Type", "application/json")
 
 	w := httptest.NewRecorder()
