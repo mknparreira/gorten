@@ -5,9 +5,9 @@ import (
 	"gorten/internal/gorten/models"
 	"gorten/internal/gorten/services"
 	pkgerr "gorten/pkg/errors"
+	"gorten/pkg/logs"
 	"gorten/pkg/pagination"
 	"gorten/pkg/utils"
-	"log"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -71,13 +71,13 @@ func (h *UserHandler) Create(c *gin.Context) {
 	if err := c.BindJSON(&newUser); err != nil {
 		var ve validator.ValidationErrors
 		if errors.As(err, &ve) {
-			log.Printf("Error on validate fields on UserHandler::Create. Reason: %v", err)
+			logs.Logger.Printf("Error on validate fields on UserHandler::Create. Reason: %v", err)
 			validation := utils.ValidationErrors(ve)
 			_ = c.Error(validation)
 			return
 		}
 
-		log.Printf("Error on UserHandler::Create. Reason: %v", err)
+		logs.Logger.Printf("Error on UserHandler::Create. Reason: %v", err)
 		//The error from c.Error() matches the argument, so no need to check
 		_ = c.Error(pkgerr.ErrInvalidRequestPayload)
 		return
@@ -103,7 +103,7 @@ func (h *UserHandler) UpdateByID(c *gin.Context) {
 	if err := c.BindJSON(&user); err != nil {
 		var ve validator.ValidationErrors
 		if errors.As(err, &ve) {
-			log.Printf("Error on validate fields on UserHandler::Update. Reason: %v", err)
+			logs.Logger.Printf("Error on validate fields on UserHandler::Update. Reason: %v", err)
 			validation := utils.ValidationErrors(ve)
 			_ = c.Error(validation)
 			return

@@ -4,7 +4,7 @@ import (
 	"errors"
 	"gorten/internal/gorten/models"
 	pkgerr "gorten/pkg/errors"
-	"log"
+	"gorten/pkg/logs"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -14,7 +14,7 @@ func ErrorMiddleware() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		defer func() {
 			if err := recover(); err != nil {
-				log.Printf("Recovered from panic: %v", err)
+				logs.Logger.Printf("Recovered from panic: %v", err)
 
 				c.JSON(http.StatusInternalServerError, models.ErrorResponse{
 					Code:    http.StatusInternalServerError,

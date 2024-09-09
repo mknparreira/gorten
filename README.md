@@ -167,12 +167,13 @@ To override these defaults, you can set the environment variables in your .env f
 
 ## Features
 
-| Package                                                                        | Description                                                                                                                                                    |
-| ------------------------------------------------------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| [Gin framework](https://gin-gonic.com/)                                        | Facilitate fast and lightweight HTTP routing and middleware management.                                                                                        |
-| [Golangci-lint](https://golangci-lint.run/)                                    | Robust linting, ensuring code quality and consistency                                                                                                          |
-| Exception handler                                                              | Middleware to handle with exceptions                                                                                                                           |
-| [Standards project layout](https://github.com/golang-standards/project-layout) | Implemented a scaffolding following best practices using the golang-standards repository. This scaffolding provides a solid foundation for further development |
+| Package                                                                        | Description                                                                                                                                      |
+| ------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------ |
+| [Gin framework](https://gin-gonic.com/)                                        | Facilitate fast and lightweight HTTP routing and middleware management.                                                                          |
+| [Golangci-lint](https://golangci-lint.run/)                                    | Robust linting, ensuring code quality and consistency                                                                                            |
+| Exception handler                                                              | Middleware to handle with exceptions                                                                                                             |
+| [Standards project layout](https://github.com/golang-standards/project-layout) | Scaffolding following best practices using the golang-standards repository. This scaffolding provides a solid foundation for further development |
+| [Logrus](https://github.com/sirupsen/logrus)                                   | Configure Logrus for Enhanced Logging                                                                                                            |
 
 # 5. User resource
 
