@@ -7,6 +7,8 @@ import (
 	"gorten/internal/gorten/api/middlewares"
 	"gorten/internal/gorten/models"
 	pkgerr "gorten/pkg/errors"
+	"gorten/pkg/logs"
+	"gorten/test/integration/mocks"
 	"net/http"
 	"net/http/httptest"
 	"testing"
@@ -16,6 +18,9 @@ import (
 )
 
 func setupRouter() *gin.Engine {
+	mockLogger := mocks.NewMockLogger()
+	logs.Logger = mockLogger.Logger
+
 	router := gin.New()
 	router.Use(middlewares.ErrorMiddleware())
 	return router

@@ -5,6 +5,7 @@ import (
 	"gorten/internal/gorten/models"
 	"gorten/internal/gorten/services"
 	"gorten/pkg/errors"
+	"gorten/pkg/logs"
 	"gorten/test/factories"
 	"gorten/test/integration/mocks"
 	"testing"
@@ -14,6 +15,12 @@ import (
 )
 
 const janeDoeName = "Jane Doe"
+
+func TestMain(m *testing.M) {
+	mockLogger := mocks.NewMockLogger()
+	logs.Logger = mockLogger.Logger
+	m.Run()
+}
 
 func TestUserService_List(t *testing.T) {
 	ctx := context.Background()

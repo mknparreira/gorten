@@ -9,7 +9,7 @@ import (
 
 var customErrorMessage = "custom error message"
 
-func TestNewCustomError(t *testing.T) {
+func TestNewCustomError_WithCorrectStatusCodeAndMessage(t *testing.T) {
 	statusCode := http.StatusNotFound
 
 	customErr := NewCustomError(statusCode, customErrorMessage)

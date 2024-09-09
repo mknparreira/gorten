@@ -1,7 +1,7 @@
 package providers
 
 import (
-	"log"
+	"gorten/pkg/logs"
 
 	"gorten/internal/gorten/config"
 
@@ -16,12 +16,12 @@ func ConfigProvider() *config.AppConfig {
 	viper.AutomaticEnv()
 
 	if err := viper.ReadInConfig(); err != nil {
-		log.Fatalf("Failed to read config file: %v", err)
+		logs.Logger.Fatalf("Failed to read config file: %v", err)
 	}
 
 	var appConfig config.AppConfig
 	if err := viper.Unmarshal(&appConfig); err != nil {
-		log.Fatalf("Failed to unmarshal config: %v", err)
+		logs.Logger.Fatalf("Failed to unmarshal config: %v", err)
 	}
 
 	return &appConfig
