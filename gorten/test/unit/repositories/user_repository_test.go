@@ -12,7 +12,7 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
-func TestGetAll(t *testing.T) {
+func TestUserRepository_GetAll(t *testing.T) {
 	ctx := context.Background()
 	userJohn := factories.UserFactory()
 	userJane := factories.UserFactory(func(u *models.User) {
@@ -31,7 +31,7 @@ func TestGetAll(t *testing.T) {
 	mockRepo.AssertExpectations(t)
 }
 
-func TestGetByID(t *testing.T) {
+func TestUserRepository_GetByID(t *testing.T) {
 	ctx := context.Background()
 	newUser := factories.UserFactory()
 	mockRepo := new(mocks.MockUserRepository)
@@ -45,7 +45,7 @@ func TestGetByID(t *testing.T) {
 	mockRepo.AssertExpectations(t)
 }
 
-func TestCreate(t *testing.T) {
+func TestUserRepository_Create(t *testing.T) {
 	ctx := context.Background()
 	newUser := factories.UserFactory()
 	mockRepo := new(mocks.MockUserRepository)
@@ -57,7 +57,7 @@ func TestCreate(t *testing.T) {
 	mockRepo.AssertExpectations(t)
 }
 
-func TestUpdate(t *testing.T) {
+func TestUserRepository_Update(t *testing.T) {
 	ctx := context.Background()
 	user := factories.UserFactory()
 	mockRepo := new(mocks.MockUserRepository)
