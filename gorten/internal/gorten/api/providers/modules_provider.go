@@ -11,5 +11,6 @@ func ModulesProvider() fx.Option {
 		modules.UserModule(),
 		modules.GeneralModule(),
 		modules.CategoryModule(),
+		modules.CompanyModule(),
 	)
 }

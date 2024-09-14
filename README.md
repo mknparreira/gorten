@@ -72,21 +72,20 @@ The project will be divided into the following phases:
 3. MongoDB Installation **(done)**
 4. Gin Framework installation **(done)**
 5. User resource **(done)**
-6. Company resource
-7. Category resource **(done)**
-8. Product resource
-9. Order resource
-10. Payment resource
-11. Shopping Cart resource
-12. Checkout resource
-13. Enhance API Security
-14. Kubernetes Installation
-15. Enhance API Resilience
-16. Enhance API Scalability
-17. Enhance Perfomance
-18. Monitoring & Tracing
-19. The Open API Documentation
-20. Future features
+6. Company and Category resource **(done)**
+7. Product resource
+8. Order resource
+9. Payment resource
+10. Shopping Cart resource
+11. Checkout resource
+12. Enhance API Security
+13. Kubernetes Installation
+14. Enhance API Resilience
+15. Enhance API Scalability
+16. Enhance Perfomance
+17. Monitoring & Tracing
+18. The Open API Documentation
+19. Future features
 
 # 1. API Gateway Installation
 
@@ -174,6 +173,8 @@ To override these defaults, you can set the environment variables in your .env f
 | Exception handler                                                              | Middleware to handle with exceptions                                                                                                             |
 | [Standards project layout](https://github.com/golang-standards/project-layout) | Scaffolding following best practices using the golang-standards repository. This scaffolding provides a solid foundation for further development |
 | [Logrus](https://github.com/sirupsen/logrus)                                   | Configure Logrus for Enhanced Logging                                                                                                            |
+| [Viper](https://github.com/spf13/viper)                                        | Handle with configuration                                                                                                                        |
+| [Uber Fx](https://github.com/uber-go/fx)                                       | Handle with dependency injection                                                                                                                 |
 
 # 5. User resource
 
@@ -185,48 +186,42 @@ The User resource, including repository, service, module, model, and handler lay
 | ------------------------------------------------------------- | ----------------------------------- |
 | [Testify](https://github.com/stretchr/testify)                | Library for assertions and mocks    |
 | [Mongo Go Driver](https://github.com/mongodb/mongo-go-driver) | The official Golang MongoDB driver  |
-| [Viper](https://github.com/spf13/viper)                       | Handle with configuration           |
-| [Uber Fx](https://github.com/uber-go/fx)                      | Handling with dependency injection  |
 | [Google UUID](https://github.com/google/uuid)                 | UUID generator for creating User ID |
 | [Validator](https://github.com/go-playground/validator)       | Form and Field validation           |
 
-# 6. Company resource
+# 6. Company and Category resource
 
-The Company resource, including repository, service, module, model, and handler layers.
+The Company and Category resource, including repository, service, module, model, and handler layers.
 
-# 7. Category resource
-
-The Category resource, including repository, service, module, model, and handler layers.
-
-# 8. Product resource
+# 7. Product resource
 
 The Product resource, including repository, service, module, model, and handler layers.
 
-# 9. Order resource
+# 8. Order resource
 
 TBD
 
-# 10. Payment resource
+# 9. Payment resource
 
 TBD
 
-# 11. Shopping Cart resource
+# 10. Shopping Cart resource
 
 TBD
 
-# 12. Checkout resource
+# 11. Checkout resource
 
 TBD
 
-# 13. Enhance API Security
+# 12. Enhance API Security
 
 TBD
 
-# 14. Kubernetes Installation
+# 13. Kubernetes Installation
 
 TBD
 
-# 15. Enhance API Resilience
+# 14. Enhance API Resilience
 
 In this phase, I will implement some strategies to improve the resilience of APIs, ensuring they can handle with failures and recover effectively. I will adopting the following strategies and tools:
 
@@ -239,14 +234,14 @@ In this phase, I will implement some strategies to improve the resilience of API
 - Implement Active Health Checks in Kong API Gateway
 - Implement Failover strategies with Kubernetes (replicaSet)
 
-# 16. Enhance API Scalability
+# 15. Enhance API Scalability
 
 To ensure API Scalability and can handle increasing demand effectively, I will adopting the following strategies and tools:
 
 - Implement Load Balancing with Kubernetes
 - Implement Rate Limiting Using the Kong Plugin
 
-# 17. Enhance Perfomance
+# 16. Enhance Perfomance
 
 - Implement Caching with Redis
 - Compressing response using Gzip
@@ -258,24 +253,24 @@ To ensure API Scalability and can handle increasing demand effectively, I will a
 | Kong Compression | Package to enable Kong to accept Gzip compression |
 | Redis            | Caching system                                    |
 
-# 18. Monitoring & Tracing
+# 17. Monitoring & Tracing
 
 This phase I will integrating monitoring through the entire system to ensure visibility and performance management. The goal is to provide real-time insights, track system health, and identify potential issues early by monitoring various metrics, logs, and events across all services. This will help in maintaining system reliability and performance.
 
 - Implement monitoring across all services (I haven´t chosen the application yet)
 - Implement Distributed Tracing with Jaeger
 
-# 19. The Open API Documentation
+# 18. The Open API Documentation
 
 In this phase, the OpenAPI documentation will be created for every API within the project. This documentation will serve as a detailed reference with all available endpoints, request and response formats, and authentication methods by using the OpenAPI specifications.
 
 - Provide The OpenAPI Documentation with [Swagger](https://swagger.io/) for synchronous APIs
 - Provide [AsyncAPI](https://www.asyncapi.com/en) documentation for asynchronous APIs
 
-# 20. Future features
+# 19. Future features
 
-| Feature / Application | Description                   |
-| --------------------- | ----------------------------- |
-| Kubernetes            | Implements Service Register   |
-| Jenkins               | Implements CI/CD with Jenkins |
-| Github Actions        | Add Github Actions            |
+| Feature / Application | Description                                 |
+| --------------------- | ------------------------------------------- |
+| Service Register      | Implements Service Register into Kubernetes |
+| Jenkins               | Implements CI/CD with Jenkins               |
+| Github Actions        | Add Github Actions                          |
