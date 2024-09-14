@@ -73,7 +73,7 @@ The project will be divided into the following phases:
 4. Gin Framework installation **(done)**
 5. User resource **(done)**
 6. Company resource
-7. Category resource
+7. Category resource **(done)**
 8. Product resource
 9. Order resource
 10. Payment resource
@@ -192,15 +192,15 @@ The User resource, including repository, service, module, model, and handler lay
 
 # 6. Company resource
 
-TBD
+The Company resource, including repository, service, module, model, and handler layers.
 
 # 7. Category resource
 
-TBD
+The Category resource, including repository, service, module, model, and handler layers.
 
 # 8. Product resource
 
-TBD
+The Product resource, including repository, service, module, model, and handler layers.
 
 # 9. Order resource
 

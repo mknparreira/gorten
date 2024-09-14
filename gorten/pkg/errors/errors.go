@@ -26,6 +26,7 @@ func (e *CustomError) WithMessage(message string) *CustomError {
 }
 
 var (
+	ErrCategoryNotFound        = NewCustomError(http.StatusNotFound, "category not found")
 	ErrUserNotFound            = NewCustomError(http.StatusNotFound, "user not found")
 	ErrInternalServerError     = NewCustomError(http.StatusInternalServerError, "Internal Server Error")
 	ErrContextDeadlineExceeded = NewCustomError(http.StatusRequestTimeout, "context deadline exceeded")
