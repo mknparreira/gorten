@@ -35,8 +35,8 @@ db.createCollection('companies', {
       required: ['companyId', 'name', 'email'],
       properties: {
         companyId: {
-          bsonType: 'int',
-          description: 'must be an integer and is required'
+          bsonType: 'string',
+          description: 'must be an string and is required'
         },
         name: {
           bsonType: 'string',
