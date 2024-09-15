@@ -82,8 +82,8 @@ db.createCollection('products', {
       required: ['productId', 'name', 'description', 'price'],
       properties: {
         productId: {
-          bsonType: 'int',
-          description: 'must be an integer and is required'
+          bsonType: 'string',
+          description: 'must be an string and is required'
         },
         name: {
           bsonType: 'string',
@@ -94,16 +94,16 @@ db.createCollection('products', {
           description: 'must be a string and is required'
         },
         price: {
-          bsonType: 'decimal',
-          description: 'must be a decimal and is required'
+          bsonType: 'double',
+          description: 'must be a double and is required'
         },
         categoryId: {
-          bsonType: 'int',
-          description: 'must be an integer representing a category'
+          bsonType: 'string',
+          description: 'must be an string representing a category'
         },
         companyId: {
-          bsonType: 'int',
-          description: 'must be an integer representing a company'
+          bsonType: 'string',
+          description: 'must be an string representing a company'
         }
       }
     }
