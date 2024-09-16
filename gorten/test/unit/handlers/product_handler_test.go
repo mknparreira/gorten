@@ -77,8 +77,13 @@ func TestProductHandler_Create(t *testing.T) {
 	productHandler := handlers.Product(mockProductService)
 	router := setupProductRouter(productHandler)
 
-	body := map[string]string{
-		"name": newProduct.Name,
+	body := map[string]any{
+		"productId":   newProduct.ProductID,
+		"name":        newProduct.Name,
+		"description": newProduct.Description,
+		"price":       newProduct.Price,
+		"categoryId":  newProduct.CategoryID,
+		"companyId":   newProduct.CompanyID,
 	}
 	reqBody, err := json.Marshal(body)
 	if err != nil {
@@ -103,10 +108,13 @@ func TestProductHandler_UpdateByID(t *testing.T) {
 	productHandler := handlers.Product(mockProductService)
 	router := setupProductRouter(productHandler)
 
-	body := map[string]string{
-		"productID":   product.ProductID,
+	body := map[string]any{
+		"productId":   product.ProductID,
 		"name":        product.Name,
-		"Description": product.Description,
+		"description": product.Description,
+		"price":       product.Price,
+		"categoryId":  product.CategoryID,
+		"companyId":   product.CompanyID,
 	}
 	reqBody, err := json.Marshal(body)
 	if err != nil {
