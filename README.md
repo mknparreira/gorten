@@ -67,27 +67,21 @@ Binding from notification_exchange to email_notifications
 
 The project will be divided into the following phases:
 
-1. API Gateway Installation **(done)**
-2. RabbitMQ Installation **(done)**
-3. MongoDB Installation **(done)**
-4. Gin Framework installation **(done)**
-5. User resource **(done)**
-6. Company and Category resource **(done)**
-7. Product resource
-8. Order resource
-9. Payment resource
-10. Shopping Cart resource
-11. Checkout resource
-12. Enhance API Security
-13. Kubernetes Installation
-14. Enhance API Resilience
-15. Enhance API Scalability
-16. Enhance Perfomance
-17. Monitoring & Tracing
-18. The Open API Documentation
-19. Future features
+1. Setup API Gateway **(done)**
+2. Setup RabbitMQ **(done)**
+3. Setup MongoDB **(done)**
+4. Setup Gin Framework **(done)**
+5. Resource **(ongoing)**
+6. Enhance API Security
+7. Setup Kubernetes
+8. Enhance API Resilience
+9. Enhance API Scalability
+10. Enhance Perfomance
+11. Monitoring & Tracing
+12. The Open API Documentation
+13. Future features
 
-# 1. API Gateway Installation
+# 1. Setup API Gateway
 
 ## Features
 
@@ -101,7 +95,7 @@ The project will be divided into the following phases:
 | [CORS](https://docs.konghq.com/hub/kong-inc/cors/)                                             | Enable CORS. CORS allowing resources to be requested from another domain outside the domain from which the resource originated                                                                 |
 | [Request transformer](https://docs.konghq.com/hub/kong-inc/request-transformer/)               | Add X-Request-ID (correlation-id) to all endpoints                                                                                                                                             |
 
-# 2. RabbitMQ Installation
+# 2. Setup RabbitMQ
 
 To set up RabbitMQ for this project, we've provided an automated shell script that configures the necessary exchanges, queues, and bindings. Follow the instructions below to get RabbitMQ up and running.
 
@@ -131,7 +125,7 @@ WAIT_TIME: (default:10)
 
 To override these defaults, you can set the environment variables in your .env file.
 
-# 3. MongoDB Installation
+# 3. Setup MongoDB
 
 The `setup-mongo.js` script is automatically executed when the MongoDB container is started, ensuring that all necessary collections and their validation rules are created.
 
@@ -162,7 +156,7 @@ ME_CONFIG_BASICAUTH_PASSWORD=qwert
 
 To override these defaults, you can set the environment variables in your .env file.
 
-# 4. Gin Framework installation
+# 4. Setup Gin Framework
 
 ## Features
 
@@ -176,9 +170,20 @@ To override these defaults, you can set the environment variables in your .env f
 | [Viper](https://github.com/spf13/viper)                                        | Handle with configuration                                                                                                                        |
 | [Uber Fx](https://github.com/uber-go/fx)                                       | Handle with dependency injection                                                                                                                 |
 
-# 5. User resource
+# 5. Resources
 
-The User resource, including repository, service, module, model, and handler layers.
+All resources, including repository, service, module, model, and handler layers.
+
+| Resource      | Description                                                                                               | Status |
+| ------------- | --------------------------------------------------------------------------------------------------------- | ------ |
+| User          | Manages user registration, editing, and viewing information such as name, email, and authentication.      | Done   |
+| Company       | Handles company registration, editing, and viewing of company-related data.                               | Done   |
+| Category      | Manages product categories, including creation, editing, and viewing.                                     | Done   |
+| Product       | Handles product-related data, including name, description, price, and associations with categories.       | Done   |
+| Order         | Manages the order process, tracking order details, user association, and total amounts.                   |        |
+| Payment       | Handles payment details for orders, including the payment method, status, and amount.                     |        |
+| Shopping Cart | Manages the shopping cart, tracking added products and their quantities for each user.                    |        |
+| Checkout      | Processes the final checkout, creating an order and clearing the shopping cart once payment is confirmed. |        |
 
 ## Features
 
@@ -189,39 +194,15 @@ The User resource, including repository, service, module, model, and handler lay
 | [Google UUID](https://github.com/google/uuid)                 | UUID generator for creating User ID |
 | [Validator](https://github.com/go-playground/validator)       | Form and Field validation           |
 
-# 6. Company and Category resource
-
-The Company and Category resource, including repository, service, module, model, and handler layers.
-
-# 7. Product resource
-
-The Product resource, including repository, service, module, model, and handler layers.
-
-# 8. Order resource
+# 6. Enhance API Security
 
 TBD
 
-# 9. Payment resource
+# 7. Setup Kubernetes
 
 TBD
 
-# 10. Shopping Cart resource
-
-TBD
-
-# 11. Checkout resource
-
-TBD
-
-# 12. Enhance API Security
-
-TBD
-
-# 13. Kubernetes Installation
-
-TBD
-
-# 14. Enhance API Resilience
+# 8. Enhance API Resilience
 
 In this phase, I will implement some strategies to improve the resilience of APIs, ensuring they can handle with failures and recover effectively. I will adopting the following strategies and tools:
 
@@ -234,14 +215,14 @@ In this phase, I will implement some strategies to improve the resilience of API
 - Implement Active Health Checks in Kong API Gateway
 - Implement Failover strategies with Kubernetes (replicaSet)
 
-# 15. Enhance API Scalability
+# 9. Enhance API Scalability
 
 To ensure API Scalability and can handle increasing demand effectively, I will adopting the following strategies and tools:
 
 - Implement Load Balancing with Kubernetes
 - Implement Rate Limiting Using the Kong Plugin
 
-# 16. Enhance Perfomance
+# 10. Enhance Perfomance
 
 - Implement Caching with Redis
 - Compressing response using Gzip
@@ -253,21 +234,21 @@ To ensure API Scalability and can handle increasing demand effectively, I will a
 | Kong Compression | Package to enable Kong to accept Gzip compression |
 | Redis            | Caching system                                    |
 
-# 17. Monitoring & Tracing
+# 11. Monitoring & Tracing
 
 This phase I will integrating monitoring through the entire system to ensure visibility and performance management. The goal is to provide real-time insights, track system health, and identify potential issues early by monitoring various metrics, logs, and events across all services. This will help in maintaining system reliability and performance.
 
 - Implement monitoring across all services (I haven´t chosen the application yet)
 - Implement Distributed Tracing with Jaeger
 
-# 18. The Open API Documentation
+# 12. The Open API Documentation
 
 In this phase, the OpenAPI documentation will be created for every API within the project. This documentation will serve as a detailed reference with all available endpoints, request and response formats, and authentication methods by using the OpenAPI specifications.
 
 - Provide The OpenAPI Documentation with [Swagger](https://swagger.io/) for synchronous APIs
 - Provide [AsyncAPI](https://www.asyncapi.com/en) documentation for asynchronous APIs
 
-# 19. Future features
+# 13. Future features
 
 | Feature / Application | Description                                 |
 | --------------------- | ------------------------------------------- |
